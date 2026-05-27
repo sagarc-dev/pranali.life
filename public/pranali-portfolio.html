@@ -1,0 +1,1945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pranali Chahande — A Journey Through The Skies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Share+Tech+Mono&family=Lato:wght@100;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #8B0000;
+    --red-mid: #B22222;
+    --red-bright: #C41E3A;
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-pale: #F5E6C0;
+    --black: #080808;
+    --deep: #0D0B0B;
+    --card-bg: rgba(20,10,10,0.72);
+    --ivory: #F8F3E8;
+    --warm-white: #FDF6EC;
+    --cloud: rgba(255,255,255,0.07);
+    --glass: rgba(255,255,255,0.04);
+    --glass-border: rgba(201,168,76,0.18);
+    --text-primary: #F0E6D3;
+    --text-secondary: #B8A898;
+    --mono: 'Share Tech Mono', monospace;
+    --serif: 'Cormorant Garamond', serif;
+    --display: 'Playfair Display', serif;
+    --sans: 'Lato', sans-serif;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    background: var(--black);
+    color: var(--text-primary);
+    font-family: var(--sans);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+    mix-blend-mode: normal;
+  }
+  .cursor-trail {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: transform 0.18s ease-out, width 0.3s, height 0.3s;
+  }
+  body:has(a:hover) .cursor, body:has(button:hover) .cursor { width: 20px; height: 20px; background: var(--red-bright); }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 1.2rem 3rem;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.9) 0%, transparent 100%);
+    backdrop-filter: blur(0px);
+    transition: backdrop-filter 0.4s, background 0.4s;
+  }
+  nav.scrolled {
+    backdrop-filter: blur(20px);
+    background: rgba(8,8,8,0.85);
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .nav-logo span { color: var(--text-secondary); }
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* HERO / SECTION 1 */
+  #hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 30% 40%, rgba(139,0,0,0.18) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 80%, rgba(201,168,76,0.06) 0%, transparent 50%),
+                linear-gradient(180deg, #060404 0%, #0D0607 50%, #080808 100%);
+  }
+
+  /* Stars */
+  .stars {
+    position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  }
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle var(--d) infinite;
+    opacity: 0;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; }
+    50% { opacity: var(--op); }
+  }
+
+  /* Clouds */
+  .cloud-layer {
+    position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+  }
+  .cloud {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    animation: drift linear infinite;
+    opacity: 0.04;
+  }
+  @keyframes drift {
+    from { transform: translateX(-20%); }
+    to { transform: translateX(120%); }
+  }
+
+  /* Departure board */
+  .dep-board {
+    position: absolute; top: 6rem; left: 50%; transform: translateX(-50%);
+    background: rgba(5,5,5,0.9);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 4px;
+    padding: 0.9rem 2.5rem;
+    z-index: 2;
+    display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+    box-shadow: 0 0 40px rgba(139,0,0,0.2), inset 0 0 20px rgba(0,0,0,0.5);
+    animation: fadeSlideDown 1s 0.5s both;
+  }
+  .dep-board-row {
+    display: flex; gap: 2rem; align-items: center;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.12em;
+  }
+  .dep-board-row .label { color: rgba(255,255,255,0.25); }
+  .dep-board-row .value { color: var(--gold-light); }
+  .dep-board-row .status { color: #4CAF50; animation: blink 2s infinite; }
+  .dep-board-title {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.25em;
+    margin-bottom: 0.4rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    padding-bottom: 0.4rem;
+    width: 100%;
+  }
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  /* Hero content */
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+    padding: 1rem;
+    margin-top: 3rem;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    animation: fadeSlideDown 0.8s 0.8s both;
+  }
+
+  .hero-title {
+    font-family: var(--display);
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 400;
+    line-height: 0.95;
+    color: var(--ivory);
+    animation: fadeSlideDown 1s 1s both;
+    position: relative;
+  }
+  .hero-title .accent { color: var(--gold); font-style: italic; }
+  .hero-title .line2 { font-size: clamp(1.8rem, 4vw, 3.5rem); color: var(--text-secondary); font-weight: 300; display: block; margin-top: 0.4rem; }
+
+  .hero-sub {
+    font-family: var(--serif);
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: var(--text-secondary);
+    font-style: italic;
+    font-weight: 300;
+    max-width: 500px;
+    line-height: 1.7;
+    animation: fadeSlideDown 1s 1.2s both;
+  }
+
+  /* Boarding Pass */
+  .boarding-pass {
+    width: min(560px, 90vw);
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    animation: fadeSlideUp 1.2s 1.5s both;
+    box-shadow: 0 20px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,168,76,0.08);
+    backdrop-filter: blur(20px);
+    transition: transform 0.4s, box-shadow 0.4s;
+    cursor: pointer;
+  }
+  .boarding-pass:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 30px 100px rgba(139,0,0,0.3), 0 0 0 1px rgba(201,168,76,0.2);
+  }
+  .bp-left {
+    flex: 1;
+    padding: 1.5rem 1.8rem;
+    border-right: 1px dashed rgba(201,168,76,0.2);
+    position: relative;
+  }
+  .bp-right {
+    width: 120px;
+    padding: 1.5rem 1rem;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between;
+  }
+  .bp-airline {
+    display: flex; align-items: center; gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .bp-airline-logo {
+    width: 28px; height: 28px;
+    background: var(--red);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono);
+    font-size: 0.5rem;
+    color: white;
+    font-weight: bold;
+  }
+  .bp-airline-name {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .bp-route {
+    display: flex; align-items: center; gap: 0.8rem;
+    margin-bottom: 1rem;
+  }
+  .bp-city {
+    font-family: var(--display);
+    font-size: 1.8rem;
+    color: var(--ivory);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .bp-arrow {
+    flex: 1;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 0.2rem;
+  }
+  .bp-arrow-line {
+    width: 100%; height: 1px;
+    background: linear-gradient(to right, rgba(201,168,76,0.2), var(--gold), rgba(201,168,76,0.2));
+    position: relative;
+  }
+  .bp-arrow-plane {
+    font-size: 0.9rem;
+    position: absolute; top: -7px; left: 50%; transform: translateX(-50%);
+  }
+  .bp-details {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.8rem;
+  }
+  .bp-detail { display: flex; flex-direction: column; gap: 0.2rem; }
+  .bp-detail-label {
+    font-family: var(--mono);
+    font-size: 0.48rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .bp-detail-value {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ivory);
+    letter-spacing: 0.05em;
+  }
+  .bp-name {
+    margin-top: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .bp-name .bp-detail-value {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .bp-barcode {
+    display: flex; gap: 2px;
+    margin: auto 0;
+  }
+  .bp-barcode span {
+    display: block;
+    width: 2px;
+    background: var(--text-secondary);
+    animation: barHeight 1s ease infinite alternate;
+  }
+  .bp-seat {
+    font-family: var(--display);
+    font-size: 2rem;
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .bp-class {
+    font-family: var(--mono);
+    font-size: 0.5rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .bp-gate {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+  }
+  .bp-stamp {
+    position: absolute; top: 1rem; right: 1.5rem;
+    width: 45px; height: 45px;
+    border: 2px solid rgba(139,0,0,0.4);
+    border-radius: 50%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    font-family: var(--mono);
+    font-size: 0.35rem;
+    color: rgba(139,0,0,0.6);
+    text-align: center;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.4;
+    transform: rotate(-15deg);
+  }
+
+  .hero-cta {
+    animation: fadeSlideUp 1s 2s both;
+  }
+  .btn-board {
+    padding: 1rem 3rem;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.4s;
+  }
+  .btn-board::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--gold);
+    transform: translateX(-101%);
+    transition: transform 0.4s;
+    z-index: -1;
+  }
+  .btn-board:hover { color: var(--black); }
+  .btn-board:hover::before { transform: translateX(0); }
+
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Hero scroll hint */
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    animation: fadeSlideUp 1s 2.5s both;
+    z-index: 2;
+  }
+  .scroll-hint span {
+    font-family: var(--mono); font-size: 0.5rem;
+    color: var(--text-secondary); letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+  @keyframes scrollPulse {
+    0% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+    100% { opacity: 0; transform: scaleY(0); transform-origin: top; }
+  }
+
+  /* SECTION STYLES */
+  section { position: relative; overflow: hidden; }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    color: var(--gold);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .section-tag::before {
+    content: '';
+    display: block; width: 40px; height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--ivory);
+  }
+  .section-title em { color: var(--gold); font-style: italic; }
+
+  .section-body {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    line-height: 1.9;
+    font-weight: 300;
+    max-width: 600px;
+  }
+
+  /* SECTION 2 — TIMELINE */
+  #timeline {
+    padding: 8rem 0;
+    background: linear-gradient(180deg, var(--black) 0%, #0A0508 50%, var(--black) 100%);
+  }
+  .timeline-header {
+    text-align: center;
+    padding: 0 2rem;
+    margin-bottom: 5rem;
+  }
+
+  .timeline-container {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--glass-border) 10%, var(--glass-border) 90%, transparent);
+    transform: translateX(-50%);
+  }
+
+  .timeline-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 3rem;
+    margin-bottom: 4rem;
+    position: relative;
+    opacity: 0;
+    transition: opacity 0.7s, transform 0.7s;
+  }
+  .timeline-item.visible { opacity: 1; }
+  .timeline-item:nth-child(odd) { flex-direction: row; transform: translateX(-40px); }
+  .timeline-item:nth-child(even) { flex-direction: row-reverse; transform: translateX(40px); }
+  .timeline-item.visible:nth-child(odd) { transform: translateX(0); }
+  .timeline-item.visible:nth-child(even) { transform: translateX(0); }
+
+  .timeline-content {
+    flex: 1;
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 6px;
+    padding: 1.8rem 2rem;
+    backdrop-filter: blur(10px);
+    position: relative;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .timeline-content:hover {
+    border-color: rgba(201,168,76,0.4);
+    box-shadow: 0 0 40px rgba(139,0,0,0.15);
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: 50%; top: 1.5rem;
+    width: 14px; height: 14px;
+    background: var(--red);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    box-shadow: 0 0 20px rgba(201,168,76,0.4);
+  }
+
+  .timeline-phase {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .timeline-title {
+    font-family: var(--display);
+    font-size: 1.4rem;
+    color: var(--ivory);
+    margin-bottom: 0.6rem;
+    font-style: italic;
+  }
+  .timeline-desc {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+  .timeline-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.6rem;
+  }
+  .timeline-spacer { flex: 1; }
+
+  /* SECTION 3 — ANNOUNCEMENTS */
+  #announcements {
+    padding: 8rem 0;
+    background: linear-gradient(135deg, #0A0406 0%, #0D0508 100%);
+    position: relative;
+  }
+  #announcements::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(139,0,0,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .announcements-header {
+    text-align: center;
+    padding: 0 2rem;
+    margin-bottom: 5rem;
+  }
+
+  .pa-system {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex; flex-direction: column; gap: 2rem;
+  }
+
+  .pa-card {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-left: 3px solid var(--red);
+    border-radius: 0 6px 6px 0;
+    padding: 2rem 2.5rem;
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.6s, transform 0.6s;
+    position: relative;
+  }
+  .pa-card.visible { opacity: 1; transform: translateX(0); }
+  .pa-card:nth-child(even) {
+    border-left: none;
+    border-right: 3px solid var(--gold);
+    border-radius: 6px 0 0 6px;
+    transform: translateX(30px);
+  }
+  .pa-card:nth-child(even).visible { transform: translateX(0); }
+
+  .pa-header {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .pa-light {
+    width: 8px; height: 8px;
+    background: var(--red);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--red);
+    animation: paBlink 2s infinite;
+  }
+  @keyframes paBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
+  .pa-label {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .pa-message {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--ivory);
+    font-style: italic;
+    line-height: 1.8;
+    margin-bottom: 0.8rem;
+  }
+  .pa-sub {
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* SECTION 4 — LIFE ABOVE CLOUDS */
+  #life {
+    padding: 8rem 0;
+    background: var(--black);
+  }
+  .life-header {
+    text-align: center;
+    padding: 0 2rem;
+    margin-bottom: 5rem;
+  }
+
+  .life-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .life-card {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 6px;
+    padding: 2rem 1.8rem;
+    backdrop-filter: blur(10px);
+    transition: transform 0.4s, border-color 0.4s, box-shadow 0.4s;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s, transform 0.6s, border-color 0.3s, box-shadow 0.3s;
+    cursor: default;
+  }
+  .life-card.visible { opacity: 1; transform: translateY(0); }
+  .life-card:hover {
+    border-color: rgba(201,168,76,0.35);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    transform: translateY(-6px) !important;
+  }
+  .life-card:nth-child(1) { grid-column: span 2; }
+  .life-card:nth-child(4) { grid-column: span 2; }
+
+  .life-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .life-title {
+    font-family: var(--display);
+    font-size: 1.25rem;
+    color: var(--ivory);
+    margin-bottom: 0.7rem;
+    font-style: italic;
+  }
+  .life-text {
+    font-family: var(--serif);
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+  .life-tag {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.2rem 0.7rem;
+    background: rgba(139,0,0,0.15);
+    border: 1px solid rgba(139,0,0,0.3);
+    border-radius: 2px;
+    font-family: var(--mono);
+    font-size: 0.52rem;
+    color: var(--red-bright);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* SECTION 5 — PASSPORT */
+  #passport {
+    padding: 8rem 0;
+    background: linear-gradient(180deg, var(--black) 0%, #0A0608 100%);
+  }
+  .passport-header {
+    text-align: center;
+    padding: 0 2rem;
+    margin-bottom: 5rem;
+  }
+
+  .passport-book {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .passport-cover {
+    background: linear-gradient(135deg, #1A0B0B 0%, #2A1010 50%, #1A0B0B 100%);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .passport-cover::before {
+    content: '✦';
+    font-size: 4rem;
+    color: rgba(201,168,76,0.08);
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+  }
+  .passport-cover-title {
+    font-family: var(--display);
+    font-size: 1.4rem;
+    color: var(--gold);
+    font-style: italic;
+    margin-bottom: 0.3rem;
+  }
+  .passport-cover-sub {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  .stamps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+  }
+
+  .stamp {
+    background: var(--card-bg);
+    border: 2px solid;
+    border-radius: 4px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: stampAppear 0.5s forwards;
+  }
+  .stamp:hover {
+    transform: scale(1.05) rotate(-1deg);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    z-index: 2;
+  }
+  .stamp-icon { font-size: 1.5rem; margin-bottom: 0.4rem; display: block; }
+  .stamp-city {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+  .stamp-country {
+    font-family: var(--serif);
+    font-size: 0.7rem;
+    font-style: italic;
+    color: var(--text-secondary);
+  }
+  .stamp-date {
+    font-family: var(--mono);
+    font-size: 0.45rem;
+    color: var(--text-secondary);
+    margin-top: 0.3rem;
+    letter-spacing: 0.08em;
+  }
+  @keyframes stampAppear {
+    from { opacity: 0; transform: scale(0.8) rotate(-5deg); }
+    to { opacity: 1; transform: scale(1) rotate(0deg); }
+  }
+
+  /* SECTION 6 — ENTERTAINMENT */
+  #entertainment {
+    padding: 8rem 0;
+    background: var(--black);
+  }
+  .ent-header {
+    text-align: center;
+    padding: 0 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .ife-screen {
+    max-width: 1000px;
+    margin: 0 auto 3rem;
+    padding: 0 2rem;
+  }
+  .ife-top-bar {
+    background: #0A0A0A;
+    border: 1px solid var(--glass-border);
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    padding: 0.6rem 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .ife-dots { display: flex; gap: 5px; }
+  .ife-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .ife-brand {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    margin-left: auto;
+  }
+
+  .content-categories {
+    background: rgba(10,8,8,0.9);
+    border: 1px solid var(--glass-border);
+    border-radius: 0 0 8px 8px;
+    padding: 1.5rem;
+    display: flex; gap: 0.8rem; overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold) transparent;
+    margin-bottom: 1.5rem;
+  }
+  .cat-btn {
+    padding: 0.5rem 1.2rem;
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    border-radius: 2px;
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s;
+  }
+  .cat-btn.active, .cat-btn:hover {
+    background: var(--red);
+    border-color: var(--red);
+    color: white;
+  }
+
+  .content-grid {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .content-card {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 6px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+  .content-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    border-color: rgba(201,168,76,0.3);
+  }
+  .content-thumb {
+    height: 130px;
+    background: linear-gradient(135deg, rgba(139,0,0,0.3) 0%, rgba(13,5,5,0.8) 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .content-thumb::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+  }
+  .content-play {
+    position: absolute;
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .content-card:hover .content-play { opacity: 1; }
+  .content-info { padding: 1rem; }
+  .content-cat {
+    font-family: var(--mono);
+    font-size: 0.48rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .content-title {
+    font-family: var(--serif);
+    font-size: 0.9rem;
+    color: var(--ivory);
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  /* SECTION 7 — BEHIND UNIFORM */
+  #behind {
+    padding: 10rem 0;
+    background: linear-gradient(180deg, var(--black) 0%, #0C0508 30%, #080408 70%, var(--black) 100%);
+  }
+
+  .behind-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+  }
+
+  .quote-block {
+    margin: 3rem 0;
+    padding: 3rem;
+    position: relative;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s, transform 0.8s;
+  }
+  .quote-block.visible { opacity: 1; transform: translateY(0); }
+  .quote-block::before {
+    content: '"';
+    font-family: var(--display);
+    font-size: 8rem;
+    color: rgba(139,0,0,0.15);
+    position: absolute; top: -2rem; left: 0;
+    line-height: 1;
+    font-style: italic;
+  }
+  .quote-text {
+    font-family: var(--display);
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--ivory);
+    font-style: italic;
+    line-height: 1.6;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+  .quote-attr {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .behind-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--glass-border);
+    margin: 4rem 0;
+    border: 1px solid var(--glass-border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .pillar {
+    background: var(--card-bg);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: background 0.3s;
+  }
+  .pillar:hover { background: rgba(139,0,0,0.1); }
+  .pillar-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+  .pillar-title {
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: var(--gold);
+    font-style: italic;
+    margin-bottom: 0.5rem;
+  }
+  .pillar-text {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* SECTION 8 — FINAL */
+  #final {
+    padding: 10rem 0 6rem;
+    background: linear-gradient(180deg, var(--black) 0%, #0E0608 50%, #100509 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .final-window {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(139,0,0,0.12) 0%, transparent 60%);
+  }
+  .final-clouds {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 300px;
+    background: linear-gradient(to top, rgba(139,0,0,0.04) 0%, transparent 100%);
+    overflow: hidden;
+  }
+  .final-cloud-svg {
+    position: absolute; bottom: 0; left: -10%;
+    width: 120%;
+    opacity: 0.06;
+    animation: cloudFloat 20s ease-in-out infinite alternate;
+  }
+  @keyframes cloudFloat {
+    from { transform: translateX(-3%); }
+    to { transform: translateX(3%); }
+  }
+
+  .final-content {
+    position: relative; z-index: 2;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .final-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .final-title {
+    font-family: var(--display);
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    color: var(--ivory);
+    font-style: italic;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .final-quote {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+
+  .social-links {
+    display: flex; gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+  .social-link {
+    padding: 0.8rem 1.8rem;
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    border-radius: 2px;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .social-link:hover {
+    background: rgba(201,168,76,0.08);
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .final-stamp {
+    display: inline-block;
+    border: 2px solid var(--red);
+    border-radius: 6px;
+    padding: 1rem 2.5rem;
+    margin-top: 2rem;
+    position: relative;
+    transform: rotate(-2deg);
+  }
+  .final-stamp::before {
+    content: '';
+    position: absolute; inset: 4px;
+    border: 1px solid rgba(139,0,0,0.3);
+    border-radius: 4px;
+  }
+  .final-stamp-text {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--red-bright);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: block;
+  }
+  .final-stamp-name {
+    font-family: var(--display);
+    font-size: 1.2rem;
+    color: var(--red);
+    font-style: italic;
+    display: block;
+    margin: 0.2rem 0;
+  }
+
+  .footer-credit {
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--glass-border);
+    font-family: var(--mono);
+    font-size: 0.5rem;
+    color: rgba(255,255,255,0.15);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: flex; align-items: center; justify-content: center; gap: 2rem;
+  }
+
+  /* AMBIENT PARTICLE */
+  .particles { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .particle {
+    position: absolute; width: 2px; height: 2px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: particleFloat var(--dur) linear infinite;
+    opacity: 0;
+  }
+  @keyframes particleFloat {
+    0% { opacity: 0; transform: translateY(100%) translateX(0); }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.3; }
+    100% { opacity: 0; transform: translateY(-100%) translateX(var(--dx)); }
+  }
+
+  /* DIVIDER */
+  .divider {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex; align-items: center; gap: 1.5rem;
+    opacity: 0.3;
+  }
+  .divider-line { flex: 1; height: 1px; background: var(--glass-border); }
+  .divider-icon { font-size: 0.8rem; color: var(--gold); }
+
+  /* PROGRESS BAR */
+  .progress-bar {
+    position: fixed; top: 0; left: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--red), var(--gold));
+    z-index: 2000;
+    transition: width 0.1s linear;
+    width: 0%;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .life-grid { grid-template-columns: 1fr; }
+    .life-card:nth-child(1) { grid-column: span 1; }
+    .life-card:nth-child(4) { grid-column: span 1; }
+    .content-grid { grid-template-columns: 1fr; }
+    .behind-pillars { grid-template-columns: 1fr; }
+    .timeline-item:nth-child(odd),
+    .timeline-item:nth-child(even) { flex-direction: column; }
+    .timeline-dot { position: static; transform: none; margin: 0 auto 1rem; }
+    .timeline-spacer { display: none; }
+    .timeline-line { display: none; }
+    .social-links { flex-direction: column; align-items: stretch; }
+    .dep-board { display: none; }
+  }
+
+  /* LOADER */
+  #loader {
+    position: fixed; inset: 0; z-index: 9990;
+    background: var(--black);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 1.5rem;
+  }
+  .loader-text {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+  .loader-bar-track {
+    width: 200px; height: 1px;
+    background: rgba(255,255,255,0.1);
+  }
+  .loader-bar-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--red), var(--gold));
+    animation: loaderFill 2s ease forwards;
+  }
+  @keyframes loaderFill {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+  .loader-sub {
+    font-family: var(--serif);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    animation: loaderPulse 1.5s ease infinite;
+  }
+  @keyframes loaderPulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+  #loader.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s;
+  }
+
+  /* WINDOW OVERLAY TRANSITION */
+  .window-frame {
+    position: fixed; inset: 0; z-index: 5000;
+    pointer-events: none;
+    border: 30px solid rgba(201,168,76,0.05);
+    border-radius: 20px;
+    box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
+  }
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div style="font-family:var(--mono);font-size:0.55rem;color:var(--text-secondary);letter-spacing:0.3em;text-transform:uppercase;margin-bottom:0.5rem">AIR INDIA PORTFOLIO SYSTEM v1.0</div>
+  <div class="loader-text">Preparing for departure...</div>
+  <div class="loader-bar-track"><div class="loader-bar-fill"></div></div>
+  <div class="loader-sub">Flight AI-271 · Mumbai → Dreams</div>
+</div>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- AIRCRAFT WINDOW FRAME -->
+<div class="window-frame"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-logo">AI·271 <span>/ Pranali Chahande</span></div>
+  <ul class="nav-links">
+    <li><a href="#hero">Terminal</a></li>
+    <li><a href="#timeline">Journey</a></li>
+    <li><a href="#announcements">Announcements</a></li>
+    <li><a href="#life">Cabin Life</a></li>
+    <li><a href="#passport">Passport</a></li>
+    <li><a href="#behind">Story</a></li>
+    <li><a href="#final">Land</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <!-- Stars -->
+  <div class="stars" id="stars"></div>
+  <!-- Clouds -->
+  <div class="cloud-layer" id="clouds"></div>
+  <!-- Particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Departure Board -->
+  <div class="dep-board">
+    <div class="dep-board-title">✦ AIR INDIA DEPARTURES ✦</div>
+    <div class="dep-board-row">
+      <span class="label">FLIGHT</span><span class="value">AI-271</span>
+      <span class="label">FROM</span><span class="value">MUMBAI</span>
+      <span class="label">TO</span><span class="value">DREAMS</span>
+      <span class="label">STATUS</span><span class="status" id="flipBoard">BOARDING</span>
+    </div>
+  </div>
+
+  <!-- Hero Content -->
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Now Boarding · Flight AI-271 · Destination: Dreams ✦</div>
+    <h1 class="hero-title">
+      Pranali<br>
+      <span class="accent">Chahande</span>
+      <span class="line2">Cabin Crew · Air India</span>
+    </h1>
+    <p class="hero-sub">From hospital corridors to the open skies — a story of courage, reinvention, and the extraordinary life lived above the clouds.</p>
+
+    <!-- Boarding Pass -->
+    <div class="boarding-pass">
+      <div class="bp-left">
+        <div class="bp-stamp">AIR<br>INDIA<br>✦✦<br>CREW</div>
+        <div class="bp-airline">
+          <div class="bp-airline-logo">AI</div>
+          <div class="bp-airline-name">Air India · Cabin Crew</div>
+        </div>
+        <div class="bp-route">
+          <span class="bp-city">MUM</span>
+          <div class="bp-arrow">
+            <div class="bp-arrow-line"><span class="bp-arrow-plane">✈</span></div>
+          </div>
+          <span class="bp-city">∞</span>
+        </div>
+        <div class="bp-details">
+          <div class="bp-detail">
+            <span class="bp-detail-label">Experience</span>
+            <span class="bp-detail-value">5+ YRS</span>
+          </div>
+          <div class="bp-detail">
+            <span class="bp-detail-label">Airlines</span>
+            <span class="bp-detail-value">2 CARRIERS</span>
+          </div>
+          <div class="bp-detail">
+            <span class="bp-detail-label">Countries</span>
+            <span class="bp-detail-value">15+ DEST</span>
+          </div>
+        </div>
+        <div class="bp-detail bp-name">
+          <span class="bp-detail-label">Passenger</span>
+          <span class="bp-detail-value">Pranali Chahande</span>
+        </div>
+      </div>
+      <div class="bp-right">
+        <div class="bp-gate">GATE<br>A7</div>
+        <div class="bp-barcode" id="barcode"></div>
+        <div>
+          <div class="bp-seat">1A</div>
+          <div class="bp-class">SKY CLASS</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-cta">
+      <button class="btn-board" onclick="document.getElementById('timeline').scrollIntoView({behavior:'smooth'})">
+        ✈ Begin Journey
+      </button>
+    </div>
+  </div>
+
+  <!-- Scroll hint -->
+  <div class="scroll-hint">
+    <span>Scroll to depart</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- SECTION 2 — TIMELINE -->
+<section id="timeline">
+  <div class="timeline-header">
+    <div class="section-tag" style="justify-content:center">Flight Route</div>
+    <h2 class="section-title">The <em>Journey</em> That<br>Changed Everything</h2>
+    <p class="section-body" style="margin:1.5rem auto 0;text-align:center">Every great story has turning points. Here are the routes that led to the skies.</p>
+  </div>
+
+  <div class="timeline-container">
+    <div class="timeline-line"></div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="timeline-icon">📚</div>
+        <div class="timeline-phase">Phase 01 · Origin</div>
+        <div class="timeline-title">The First Chapter</div>
+        <div class="timeline-desc">Grew up with ambition and drive. After school, chose nursing — a respectable, secure path that promised purpose and stability. The foundation of discipline was laid here.</div>
+      </div>
+      <div class="timeline-spacer"></div>
+      <div class="timeline-dot"></div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-spacer"></div>
+      <div class="timeline-content">
+        <div class="timeline-icon">🏥</div>
+        <div class="timeline-phase">Phase 02 · Crossroads</div>
+        <div class="timeline-title">Nursing & The Government Post</div>
+        <div class="timeline-desc">Studied nursing with dedication. Secured a coveted government position in the medical field — a dream for many. But the hospital environment — blood, patient distress, clinical walls — didn't feel like home.</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="timeline-icon">💡</div>
+        <div class="timeline-phase">Phase 03 · The Leap</div>
+        <div class="timeline-title">The Boldest Decision</div>
+        <div class="timeline-desc">Walking away from security is the hardest thing. She did it anyway. With no aviation background, she pivoted completely — bet on herself, prepared from scratch, and stepped toward the sky.</div>
+      </div>
+      <div class="timeline-spacer"></div>
+      <div class="timeline-dot"></div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-spacer"></div>
+      <div class="timeline-content">
+        <div class="timeline-icon">🛫</div>
+        <div class="timeline-phase">Phase 04 · Debut</div>
+        <div class="timeline-title">GoFirst · Wings Earned</div>
+        <div class="timeline-desc">The uniform was new. The aircraft was unfamiliar. But the spirit was unstoppable. Two years at GoFirst shaped her professionalism, tested her resilience, and gave her the wings she earned — not inherited.</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="timeline-icon">🔴</div>
+        <div class="timeline-phase">Phase 05 · Elevation</div>
+        <div class="timeline-title">Air India · Flying with Pride</div>
+        <div class="timeline-desc">The iconic red sari. The Maharaja's hospitality. Joining Air India wasn't just a career move — it was an arrival. International routes, global cities, and the pride of representing India above the clouds.</div>
+      </div>
+      <div class="timeline-spacer"></div>
+      <div class="timeline-dot"></div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-spacer"></div>
+      <div class="timeline-content">
+        <div class="timeline-icon">🌍</div>
+        <div class="timeline-phase">Phase 06 · Now</div>
+        <div class="timeline-title">The World Is Her Runway</div>
+        <div class="timeline-desc">London, Sydney, Dubai, Singapore, Seoul, Mauritius, Nairobi — the list grows with every flight. She lives what most dream of, and tells the story with grace, honesty, and joy on her Instagram.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION 3 — ANNOUNCEMENTS -->
+<section id="announcements">
+  <div class="announcements-header">
+    <div class="section-tag" style="justify-content:center">Cabin PA System</div>
+    <h2 class="section-title">Ladies & Gentlemen,<br><em>A Story Begins</em></h2>
+  </div>
+
+  <div class="pa-system">
+    <div class="pa-card">
+      <div class="pa-header">
+        <div class="pa-light"></div>
+        <div class="pa-label">Cabin Announcement · Chapter 1</div>
+      </div>
+      <div class="pa-message">"Cabin crew, prepare for takeoff..."</div>
+      <div class="pa-sub">Every journey begins with a decision. Hers began the moment she chose discomfort over security — freedom over familiarity. This is not a story of luck. This is a story of deliberate courage.</div>
+    </div>
+
+    <div class="pa-card">
+      <div class="pa-header">
+        <div class="pa-light"></div>
+        <div class="pa-label">Cabin Announcement · Chapter 2</div>
+      </div>
+      <div class="pa-message">"We are now cruising at 38,000 feet..."</div>
+      <div class="pa-sub">At this altitude, everything looks different. The chaos below becomes perspective. She found her clarity up here — in the silence between clouds, in the rhythm of routines that most never see.</div>
+    </div>
+
+    <div class="pa-card">
+      <div class="pa-header">
+        <div class="pa-light"></div>
+        <div class="pa-label">Cabin Announcement · Chapter 3</div>
+      </div>
+      <div class="pa-message">"On behalf of your crew, we want to thank you..."</div>
+      <div class="pa-sub">Service is not servitude. It is art. It is presence. It is the ability to make a stranger feel at home thousands of feet above the earth — and she mastered this with effortless grace.</div>
+    </div>
+
+    <div class="pa-card">
+      <div class="pa-header">
+        <div class="pa-light"></div>
+        <div class="pa-label">Cabin Announcement · Chapter 4</div>
+      </div>
+      <div class="pa-message">"We are beginning our descent into the destination..."</div>
+      <div class="pa-sub">Every landing is a new beginning. A new city. A new story. A new version of herself shaped by the journey. The destination was never the point — the flight always was.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4 — LIFE ABOVE CLOUDS -->
+<section id="life">
+  <div class="life-header">
+    <div class="section-tag" style="justify-content:center">Cabin Life</div>
+    <h2 class="section-title">Life <em>Above</em><br>The Clouds</h2>
+    <p class="section-body" style="margin:1.5rem auto 0;text-align:center;max-width:500px">
+      Beyond the smile and the uniform — the real story of cabin crew life.
+    </p>
+  </div>
+
+  <div class="life-grid">
+    <div class="life-card">
+      <div class="life-icon">⏰</div>
+      <div class="life-title">4 AM Report Times</div>
+      <div class="life-text">The city is still asleep when she's already at the airport. Pre-flight briefings, safety checks, passenger manifests — all before most people hit snooze. This discipline is not demanded. It is owned.</div>
+      <span class="life-tag">Before the sunrise</span>
+    </div>
+
+    <div class="life-card">
+      <div class="life-icon">💎</div>
+      <div class="life-title">The Grooming Standard</div>
+      <div class="life-text">Every detail matters. Hair, posture, smile, uniform — each an expression of professionalism and pride. The Air India look is not vanity. It is the craft of presentation carried with intention.</div>
+      <span class="life-tag">Appearance as art</span>
+    </div>
+
+    <div class="life-card">
+      <div class="life-icon">🛡️</div>
+      <div class="life-title">Safety First, Always</div>
+      <div class="life-text">She is not just serving meals. She is trained in emergency evacuations, first aid, fire suppression, ditching procedures. The smile comes after the safety briefing — always.</div>
+      <span class="life-tag">Guardian of the skies</span>
+    </div>
+
+    <div class="life-card">
+      <div class="life-icon">😴</div>
+      <div class="life-title">Jet Lag & Resilience</div>
+      <div class="life-text">Flying from Mumbai to Sydney and back in 48 hours rewires your internal clock in ways sleep cannot fix. She manages it with routines, self-care rituals, and sheer mental strength. Time zones are just numbers.</div>
+      <span class="life-tag">Mind over meridian</span>
+    </div>
+
+    <div class="life-card">
+      <div class="life-icon">🌟</div>
+      <div class="life-title">Smiling Under Pressure</div>
+      <div class="life-text">Difficult passengers. Medical emergencies at altitude. Turbulence. Crew conflicts. She handles it all with composure — because professionalism is not the absence of pressure, it is grace within it.</div>
+      <span class="life-tag">Pressure, grace, repeat</span>
+    </div>
+
+    <div class="life-card">
+      <div class="life-icon">🌏</div>
+      <div class="life-title">A Different World Every Day</div>
+      <div class="life-text">Yesterday London, today Nairobi, tomorrow Seoul. Each layover is a window — to culture, food, language, and people. This is not a job. It is a relentless, beautiful education in being human.</div>
+      <span class="life-tag">World as classroom</span>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5 — PASSPORT -->
+<section id="passport">
+  <div class="passport-header">
+    <div class="section-tag" style="justify-content:center">Passport Memories</div>
+    <h2 class="section-title">Cities That <em>Shaped</em> Her</h2>
+    <p class="section-body" style="margin:1.5rem auto 0;text-align:center">Each stamp a story. Each city a chapter.</p>
+  </div>
+
+  <div class="passport-book">
+    <div class="passport-cover">
+      <div class="passport-cover-title">Pranali Chahande</div>
+      <div class="passport-cover-sub">✦ Air India · Cabin Crew · Travelling the World ✦</div>
+    </div>
+    <div class="stamps-grid" id="stampsGrid"></div>
+  </div>
+</section>
+
+<!-- SECTION 6 — ENTERTAINMENT -->
+<section id="entertainment">
+  <div class="ent-header">
+    <div class="section-tag" style="justify-content:center">In-Flight Entertainment</div>
+    <h2 class="section-title">Her <em>Content</em> Universe</h2>
+    <p class="section-body" style="margin:1.5rem auto 0;text-align:center">Curated stories from life at 38,000 feet</p>
+  </div>
+
+  <div class="ife-screen">
+    <div class="ife-top-bar">
+      <div class="ife-dots">
+        <div class="ife-dot" style="background:#C41E3A"></div>
+        <div class="ife-dot" style="background:#C9A84C"></div>
+        <div class="ife-dot" style="background:rgba(255,255,255,0.2)"></div>
+      </div>
+      <span style="font-family:var(--mono);font-size:0.5rem;color:var(--text-secondary)">AI-IFE SYSTEM · ENTERTAINMENT</span>
+      <div class="ife-brand">@__pranaliii___</div>
+    </div>
+    <div class="content-categories">
+      <button class="cat-btn active">All Content</button>
+      <button class="cat-btn">Travel Vlogs</button>
+      <button class="cat-btn">Layover Diaries</button>
+      <button class="cat-btn">Airport Moments</button>
+      <button class="cat-btn">Lifestyle</button>
+      <button class="cat-btn">Sky Views</button>
+      <button class="cat-btn">Travel Fashion</button>
+    </div>
+  </div>
+
+  <div class="content-grid" id="contentGrid"></div>
+</section>
+
+<!-- SECTION 7 — BEHIND UNIFORM -->
+<section id="behind">
+  <div class="behind-container">
+    <div class="section-tag" style="justify-content:center">Behind The Uniform</div>
+    <h2 class="section-title" style="text-align:center">The Woman <em>Inside</em><br>The Red Sari</h2>
+
+    <div class="quote-block">
+      <div class="quote-text">"I was afraid of blood. I chose a career that dealt with it every day. That fear taught me I was capable of facing anything — even myself."</div>
+      <div class="quote-attr">— Pranali Chahande</div>
+    </div>
+
+    <div class="behind-pillars">
+      <div class="pillar">
+        <div class="pillar-icon">🔥</div>
+        <div class="pillar-title">Courage</div>
+        <div class="pillar-text">Left a government job — the definition of security in India — for an industry she'd never worked in. Courage isn't fearlessness. It's moving forward despite fear.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">🦋</div>
+        <div class="pillar-title">Transformation</div>
+        <div class="pillar-text">From nursing whites to Air India red — a metamorphosis not just of career, but of identity. She became who she was always meant to be, only later than expected.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">⭐</div>
+        <div class="pillar-title">Independence</div>
+        <div class="pillar-text">She travels the world alone. Makes decisions alone. Navigates new cities, new cultures, new challenges — alone. That independence wasn't given. It was earned, flight by flight.</div>
+      </div>
+    </div>
+
+    <div class="quote-block" style="animation-delay:0.3s">
+      <div class="quote-text">"The hardest flight I ever took wasn't across an ocean. It was the one I took on faith — with no destination, just direction."</div>
+      <div class="quote-attr">— On career change</div>
+    </div>
+
+    <div style="margin-top:2rem;padding:2rem;background:var(--card-bg);border:1px solid var(--glass-border);border-radius:6px;backdrop-filter:blur(10px)">
+      <div class="section-tag" style="justify-content:center">Note to Visitors</div>
+      <p class="section-body" style="text-align:center;margin:0 auto;font-size:1rem">
+        Flight attendants are trained safety professionals, emotional labor experts, cultural ambassadors, and problem solvers at altitude. The grace you see is the tip of the iceberg. The training, the discipline, the sacrifice — that is the ship beneath.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 8 — FINAL -->
+<section id="final">
+  <div class="final-window"></div>
+  <div class="final-clouds">
+    <svg class="final-cloud-svg" viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="200" cy="200" rx="180" ry="80" fill="white"/>
+      <ellipse cx="250" cy="160" rx="130" ry="70" fill="white"/>
+      <ellipse cx="150" cy="180" rx="100" ry="60" fill="white"/>
+      <ellipse cx="600" cy="220" rx="200" ry="70" fill="white"/>
+      <ellipse cx="660" cy="170" rx="150" ry="65" fill="white"/>
+      <ellipse cx="1000" cy="210" rx="170" ry="75" fill="white"/>
+      <ellipse cx="1060" cy="160" rx="120" ry="60" fill="white"/>
+    </svg>
+  </div>
+
+  <div class="final-content">
+    <div class="final-eyebrow">✦ Thank you for flying ✦</div>
+    <h2 class="final-title">Final<br><em>Destination</em></h2>
+    <p class="final-quote">
+      "Some journeys begin after turbulence.<br>
+      The bravest ones begin after comfort."
+    </p>
+
+    <div class="social-links">
+      <a href="https://www.instagram.com/__pranaliii___" target="_blank" class="social-link">
+        📸 Instagram
+      </a>
+      <a href="mailto:sagarc.dev@outlook.com" class="social-link">
+        ✉ Collaborations
+      </a>
+    </div>
+
+    <div style="font-family:var(--serif);font-size:0.9rem;color:var(--text-secondary);font-style:italic;line-height:1.8;max-width:500px;margin:0 auto 3rem">
+      Open to travel collaborations, brand partnerships, lifestyle features, and aviation content creation. Let's create something beautiful together.
+    </div>
+
+    <div class="final-stamp">
+      <span class="final-stamp-text">Thank you for flying with</span>
+      <span class="final-stamp-name">Pranali Chahande</span>
+      <span class="final-stamp-text">Air India · Cabin Crew ✦</span>
+    </div>
+
+    <div class="footer-credit">
+      <span>AI-271</span>
+      <span>·</span>
+      <span>Mumbai → Everywhere</span>
+      <span>·</span>
+      <span>Designed with ✦ for the skies</span>
+    </div>
+  </div>
+</section>
+
+<script>
+// Loader
+setTimeout(() => {
+  document.getElementById('loader').classList.add('hidden');
+  setTimeout(() => document.getElementById('loader').remove(), 1000);
+}, 2200);
+
+// Cursor
+const cursor = document.getElementById('cursor');
+const trail = document.getElementById('cursorTrail');
+let mx = 0, my = 0, tx = 0, ty = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+function animTrail() {
+  tx += (mx - tx) * 0.12;
+  ty += (my - ty) * 0.12;
+  trail.style.left = tx + 'px';
+  trail.style.top = ty + 'px';
+  requestAnimationFrame(animTrail);
+}
+animTrail();
+
+// Progress bar
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+  // Nav scroll
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Stars
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 120; i++) {
+  const s = document.createElement('div');
+  s.classList.add('star');
+  const size = Math.random() * 2 + 0.5;
+  s.style.cssText = `
+    width:${size}px;height:${size}px;
+    left:${Math.random()*100}%;top:${Math.random()*100}%;
+    --d:${2 + Math.random()*4}s;
+    --op:${0.3 + Math.random()*0.5};
+    animation-delay:${Math.random()*4}s;
+  `;
+  starsEl.appendChild(s);
+}
+
+// Clouds
+const cloudEl = document.getElementById('clouds');
+const cloudColors = ['rgba(139,0,0,1)', 'rgba(201,168,76,1)', 'rgba(50,20,20,1)'];
+for (let i = 0; i < 4; i++) {
+  const c = document.createElement('div');
+  c.classList.add('cloud');
+  const size = 200 + Math.random() * 300;
+  c.style.cssText = `
+    width:${size}px;height:${size * 0.6}px;
+    left:-20%;top:${10 + Math.random()*70}%;
+    background:${cloudColors[i % cloudColors.length]};
+    animation-duration:${30 + Math.random()*20}s;
+    animation-delay:${-Math.random()*30}s;
+  `;
+  cloudEl.appendChild(c);
+}
+
+// Particles
+const particlesEl = document.getElementById('particles');
+for (let i = 0; i < 20; i++) {
+  const p = document.createElement('div');
+  p.classList.add('particle');
+  p.style.cssText = `
+    left:${Math.random()*100}%;
+    bottom:0;
+    --dur:${8 + Math.random()*12}s;
+    --dx:${(Math.random()-0.5)*100}px;
+    animation-delay:${Math.random()*10}s;
+  `;
+  particlesEl.appendChild(p);
+}
+
+// Barcode
+const barcode = document.getElementById('barcode');
+for (let i = 0; i < 20; i++) {
+  const b = document.createElement('span');
+  b.style.height = (10 + Math.random() * 25) + 'px';
+  b.style.animationDelay = (Math.random() * 1) + 's';
+  barcode.appendChild(b);
+}
+
+// Flip board
+const statuses = ['BOARDING', 'ON TIME', 'BOARDING', 'GATE OPEN', 'BOARDING'];
+let si = 0;
+setInterval(() => {
+  si = (si + 1) % statuses.length;
+  document.getElementById('flipBoard').textContent = statuses[si];
+}, 3000);
+
+// Passport stamps
+const destinations = [
+  { city: 'London', country: 'United Kingdom', icon: '🇬🇧', color: 'rgba(0,36,125,0.4)', text: '#4169E1' },
+  { city: 'Birmingham', country: 'United Kingdom', icon: '🇬🇧', color: 'rgba(0,36,125,0.3)', text: '#5B82D4' },
+  { city: 'Dubai', country: 'UAE', icon: '🇦🇪', color: 'rgba(0,100,0,0.3)', text: '#4CAF50' },
+  { city: 'Singapore', country: 'Singapore', icon: '🇸🇬', color: 'rgba(239,51,64,0.3)', text: '#EF3340' },
+  { city: 'Bangkok', country: 'Thailand', icon: '🇹🇭', color: 'rgba(165,25,49,0.3)', text: '#C41E3A' },
+  { city: 'Sydney', country: 'Australia', icon: '🇦🇺', color: 'rgba(0,0,128,0.3)', text: '#0000CC' },
+  { city: 'Melbourne', country: 'Australia', icon: '🇦🇺', color: 'rgba(0,0,128,0.25)', text: '#2222BB' },
+  { city: 'Mauritius', country: 'Mauritius', icon: '🇲🇺', color: 'rgba(201,168,76,0.25)', text: '#C9A84C' },
+  { city: 'Nairobi', country: 'Kenya', icon: '🇰🇪', color: 'rgba(0,100,0,0.25)', text: '#3CAF50' },
+  { city: 'Nepal', country: 'Nepal', icon: '🇳🇵', color: 'rgba(139,0,0,0.3)', text: '#8B0000' },
+  { city: 'Hong Kong', country: 'Hong Kong', icon: '🇭🇰', color: 'rgba(222,41,16,0.3)', text: '#DE2910' },
+  { city: 'Seoul', country: 'South Korea', icon: '🇰🇷', color: 'rgba(0,47,108,0.3)', text: '#003882' },
+  { city: 'Amritsar', country: 'India', icon: '🇮🇳', color: 'rgba(255,153,51,0.2)', text: '#FF9933' },
+  { city: 'Goa', country: 'India', icon: '🌴', color: 'rgba(34,139,34,0.2)', text: '#22AA44' },
+  { city: 'Jaipur', country: 'India', icon: '🌸', color: 'rgba(255,105,180,0.2)', text: '#FF69B4' },
+  { city: 'Kochi', country: 'India', icon: '⚓', color: 'rgba(0,128,128,0.2)', text: '#009999' },
+  { city: 'Kannur', country: 'India', icon: '🌊', color: 'rgba(30,144,255,0.2)', text: '#1E90FF' },
+  { city: 'Saudi Arabia', country: 'KSA', icon: '🇸🇦', color: 'rgba(0,106,78,0.25)', text: '#00664E' },
+  { city: 'Kolkata', country: 'India', icon: '🌺', color: 'rgba(220,20,60,0.2)', text: '#DC143C' },
+  { city: 'Delhi', country: 'India', icon: '🏛️', color: 'rgba(255,153,51,0.15)', text: '#FF7722' },
+  { city: 'Chennai', country: 'India', icon: '🎭', color: 'rgba(128,0,0,0.2)', text: '#800000' },
+  { city: 'Ahmedabad', country: 'India', icon: '🏺', color: 'rgba(200,100,0,0.2)', text: '#C86400' },
+  { city: 'Hyderabad', country: 'India', icon: '💎', color: 'rgba(128,0,128,0.2)', text: '#8000AA' },
+  { city: 'Mathura', country: '  India', icon: '🪷', color: 'rgba(255,165,0,0.15)', text: '#FFA500' },
+];
+
+const stampsGrid = document.getElementById('stampsGrid');
+destinations.forEach((d, i) => {
+  const stamp = document.createElement('div');
+  stamp.classList.add('stamp');
+  stamp.style.borderColor = d.text;
+  stamp.style.animationDelay = (i * 0.05) + 's';
+  stamp.innerHTML = `
+    <span class="stamp-icon">${d.icon}</span>
+    <div class="stamp-city" style="color:${d.text}">${d.city}</div>
+    <div class="stamp-country">${d.country}</div>
+    <div class="stamp-date">AI · CREW</div>
+  `;
+  stampsGrid.appendChild(stamp);
+});
+
+// Content cards
+const contentItems = [
+  { icon: '✈️', cat: 'Travel Vlog', title: 'London Layover Diaries — 36 Hours in the City' },
+  { icon: '🌅', cat: 'Sky Views', title: 'Sunrise at 38,000 ft — What No Tourist Sees' },
+  { icon: '💄', cat: 'Travel Fashion', title: 'Uniform to Dinner: The Art of Cabin Crew Style' },
+  { icon: '🍜', cat: 'Food Stories', title: 'What I Ate in Bangkok During a 20-Hour Layover' },
+  { icon: '🛫', cat: 'Airport Moments', title: 'The Quiet Magic of 4 AM Airports' },
+  { icon: '🌴', cat: 'Layover Diary', title: 'Mauritius in 12 Hours — Is It Possible?' },
+  { icon: '🎌', cat: 'Travel Vlog', title: 'Seoul Street Food on a Crew Layover' },
+  { icon: '🦁', cat: 'Layover Diary', title: 'Nairobi: When a Layover Becomes a Safari' },
+  { icon: '🏙️', cat: 'Lifestyle', title: 'Inside the Life of a Cabin Crew at Air India' },
+];
+
+const contentGrid = document.getElementById('contentGrid');
+contentItems.forEach(item => {
+  const card = document.createElement('div');
+  card.classList.add('content-card');
+  card.innerHTML = `
+    <div class="content-thumb">
+      <span style="font-size:3rem;z-index:1;position:relative">${item.icon}</span>
+      <div class="content-play">▶</div>
+    </div>
+    <div class="content-info">
+      <div class="content-cat">${item.cat}</div>
+      <div class="content-title">${item.title}</div>
+    </div>
+  `;
+  contentGrid.appendChild(card);
+});
+
+// Category filter
+document.querySelectorAll('.cat-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// Intersection Observer for animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.timeline-item, .pa-card, .life-card, .quote-block').forEach(el => {
+  observer.observe(el);
+});
+
+// Stamp visibility
+const stampObserver = new IntersectionObserver((entries) => {
+  if (entries[0].isIntersecting) {
+    document.querySelectorAll('.stamp').forEach((s, i) => {
+      setTimeout(() => s.style.opacity = '1', i * 60);
+    });
+    stampObserver.disconnect();
+  }
+}, { threshold: 0.2 });
+const stampsSection = document.getElementById('passport');
+if (stampsSection) stampObserver.observe(stampsSection);
+
+// Parallax clouds on scroll
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const cloudLayer = document.querySelector('.cloud-layer');
+  if (cloudLayer) {
+    cloudLayer.style.transform = `translateY(${scrollY * 0.3}px)`;
+  }
+});
+
+// Keyboard hint
+window.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown') window.scrollBy({ top: 200, behavior: 'smooth' });
+  if (e.key === 'ArrowUp') window.scrollBy({ top: -200, behavior: 'smooth' });
+});
+</script>
+</body>
+</html>
