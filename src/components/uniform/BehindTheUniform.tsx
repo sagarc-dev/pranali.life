@@ -1,6 +1,7 @@
 "use client";
 import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import ScrambleText from "@/components/shared/ScrambleText";
 import { UNIFORM_LINES } from "@/lib/constants";
 
 function UniformLine({ item, index }: { item: (typeof UNIFORM_LINES)[0]; index: number }) {
@@ -158,7 +159,7 @@ export default function BehindTheUniform() {
           className="font-serif font-light"
           style={{ fontSize: "clamp(2.2rem, 9vw, 4.5rem)", color: "#F5EDD8", textAlign: "center" }}
         >
-          Her Story
+          <ScrambleText text="Her Story" />
         </motion.h2>
 
         <motion.p

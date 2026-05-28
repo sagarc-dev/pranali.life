@@ -2,6 +2,7 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import Image from "next/image";
+import ScrambleText from "@/components/shared/ScrambleText";
 import { PASSPORT_STAMPS } from "@/lib/constants";
 
 type Stamp = (typeof PASSPORT_STAMPS)[0];
@@ -170,7 +171,7 @@ export default function PassportMemories() {
               lineHeight: 1.15,
             }}
           >
-            Cities &amp; Stories
+            <ScrambleText text="Cities & Stories" />
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}

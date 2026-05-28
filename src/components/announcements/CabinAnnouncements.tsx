@@ -2,6 +2,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ANNOUNCEMENTS } from "@/lib/constants";
+import ScrambleText from "@/components/shared/ScrambleText";
 
 function PACard({ item, index }: { item: (typeof ANNOUNCEMENTS)[0]; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -185,12 +186,12 @@ export default function CabinAnnouncements() {
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="font-serif font-light"
             style={{
-              fontSize: "clamp(2rem, 9vw, 3.5rem)",
+              fontSize: "clamp(2.2rem, 9vw, 4.5rem)",
               color: "#F5EDD8",
               textAlign: "center",
             }}
           >
-            Ladies &amp; Gentlemen,
+            <ScrambleText text="Ladies & Gentlemen," />
           </motion.h2>
 
           <motion.p

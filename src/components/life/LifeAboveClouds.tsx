@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import CloudLayer from "@/components/shared/CloudLayer";
+import ScrambleText from "@/components/shared/ScrambleText";
 import { CABIN_REALITIES } from "@/lib/constants";
 
 function RealityCard({ item, index }: { item: (typeof CABIN_REALITIES)[0]; index: number }) {
@@ -143,7 +144,7 @@ export default function LifeAboveClouds() {
               marginBottom: "1rem",
             }}
           >
-            Beyond the Uniform
+            <ScrambleText text="Beyond the Uniform" />
           </motion.h2>
 
           <motion.p

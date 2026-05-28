@@ -2,6 +2,7 @@
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
+import ScrambleText from "@/components/shared/ScrambleText";
 import { IFE_CATEGORIES, IFE_CONTENT } from "@/lib/constants";
 
 function IFECard({ item, index }: { item: (typeof IFE_CONTENT)[0]; index: number }) {
@@ -193,7 +194,7 @@ export default function InFlightEntertainment() {
               lineHeight: 1.15,
             }}
           >
-            Content &amp; Stories
+            <ScrambleText text="Content & Stories" />
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}

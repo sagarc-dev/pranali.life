@@ -4,49 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import ParticleField from "@/components/shared/ParticleField";
 import CloudLayer from "@/components/shared/CloudLayer";
+import { FlipChar } from "@/components/shared/ScrambleText";
 import { SITE } from "@/lib/constants";
-
-// Animated flip-board style character
-function FlipChar({ char, delay }: { char: string; delay: number }) {
-  const [current, setCurrent] = useState("_");
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -:".split("");
-
-  useEffect(() => {
-    let count = 0;
-    const target = char.toUpperCase();
-    const maxFlips = 8;
-
-    const timer = setTimeout(() => {
-      const interval = setInterval(() => {
-        if (count >= maxFlips) {
-          setCurrent(target);
-          clearInterval(interval);
-          return;
-        }
-        setCurrent(chars[Math.floor(Math.random() * chars.length)]);
-        count++;
-      }, 60);
-      return () => clearInterval(interval);
-    }, delay);
-
-    return () => clearTimeout(timer);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [char, delay]);
-
-  return (
-    <span
-      className="font-mono inline-block"
-      style={{
-        color: current === char.toUpperCase() ? "#F0C060" : "rgba(240,192,96,0.5)",
-        transition: "color 0.1s",
-        minWidth: char === " " ? "0.5em" : "0.7em",
-      }}
-    >
-      {current}
-    </span>
-  );
-}
-
 function DepartureBoard() {
   const rows = [
     { flight: "AI-271", destination: "DREAMS", time: "NOW", status: "BOARDING", statusColor: "#C9952A" },

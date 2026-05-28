@@ -1,9 +1,10 @@
 "use client";
 import { useState, useRef } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { JOURNEY_STOPS } from "@/lib/constants";
 import CloudLayer from "@/components/shared/CloudLayer";
+import ScrambleText from "@/components/shared/ScrambleText";
 
 type Stop = (typeof JOURNEY_STOPS)[0];
 
@@ -11,6 +12,14 @@ export default function FlightTimeline() {
   const [activeStop, setActiveStop] = useState<Stop | null>(JOURNEY_STOPS[0]);
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start center", "end center"],
+  });
+
+  const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const planeY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <section
@@ -23,6 +32,63 @@ export default function FlightTimeline() {
       }}
     >
       <CloudLayer density="medium" />
+
+      {/* ── Background Animated Flight Path ── */}
+      <div
+        style={{
+          position: "absolute",
+          top: "15%",
+          bottom: "15%",
+          left: "10%",
+          width: "80%",
+          zIndex: 1,
+          pointerEvents: "none",
+          opacity: 0.15,
+        }}
+        className="hidden md:block"
+      >
+        <svg
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          style={{ width: "100%", height: "100%", overflow: "visible" }}
+        >
+          {/* Base dashed path */}
+          <path
+            d="M 50 0 C 80 20, 20 50, 50 80 C 80 110, 50 150, 50 150"
+            fill="none"
+            stroke="#C9952A"
+            strokeWidth="0.5"
+            strokeDasharray="2 4"
+            vectorEffect="non-scaling-stroke"
+          />
+          {/* Animated solid path */}
+          <motion.path
+            d="M 50 0 C 80 20, 20 50, 50 80 C 80 110, 50 150, 50 150"
+            fill="none"
+            stroke="#C9952A"
+            strokeWidth="1.5"
+            vectorEffect="non-scaling-stroke"
+            style={{ pathLength }}
+          />
+        </svg>
+      </div>
+
+      {/* Airplane Icon Following Scroll (Approximate Vertical) */}
+      <motion.div
+        className="hidden md:flex absolute left-[50%] -translate-x-1/2 z-[2]"
+        style={{
+          top: "15%",
+          bottom: "15%",
+          y: planeY,
+          color: "#C9952A",
+          fontSize: "1.5rem",
+          textShadow: "0 0 20px rgba(201,149,42,0.5)",
+          rotate: 90, // point down
+          marginLeft: "-3rem", // visual offset to align with curve roughly
+        }}
+      >
+        ✈
+      </motion.div>
 
       {/* ── Header ── */}
       <div
@@ -67,7 +133,7 @@ export default function FlightTimeline() {
             textAlign: "center",
           }}
         >
-          The Journey
+          <ScrambleText text="The Journey" />
         </motion.h2>
 
         <motion.p
