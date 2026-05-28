@@ -39,6 +39,7 @@ function PassportStamp({
       onClick={onClick}
       className="cursor-pointer select-none"
       style={{ position: "relative", display: "inline-block" }}
+      layoutId={`stamp-${stamp.city}`}
     >
       <div
         className="flex flex-col items-center justify-center gap-1 px-4 py-3 rounded"
@@ -268,6 +269,7 @@ export default function PassportMemories() {
                 border: `1px solid ${activeStamp.color}50`,
               }}
               onClick={(e) => e.stopPropagation()}
+              layoutId={`stamp-${activeStamp.city}`}
             >
               {/* Header */}
               <div

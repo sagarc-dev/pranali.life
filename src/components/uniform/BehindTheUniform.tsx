@@ -4,9 +4,41 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import ScrambleText from "@/components/shared/ScrambleText";
 import { UNIFORM_LINES } from "@/lib/constants";
 
+function Word({ children, progress, range }: { children: string; progress: any; range: [number, number] }) {
+  const opacity = useTransform(progress, range, [0.2, 1]);
+  const y = useTransform(progress, range, [10, 0]);
+  return (
+    <motion.span style={{ opacity, y, display: "inline-block", marginRight: "0.25em" }}>
+      {children}
+    </motion.span>
+  );
+}
+
+function ScrubbedText({ text, progress, range }: { text: string; progress: any; range: [number, number] }) {
+  const words = text.split(" ");
+  const step = (range[1] - range[0]) / words.length;
+  return (
+    <>
+      {words.map((word, i) => {
+        const start = range[0] + i * step;
+        const end = start + step;
+        return (
+          <Word key={i} progress={progress} range={[start, end]}>
+            {word}
+          </Word>
+        );
+      })}
+    </>
+  );
+}
+
 function UniformLine({ item, index }: { item: (typeof UNIFORM_LINES)[0]; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 80%", "end 40%"],
+  });
 
   return (
     <motion.div
@@ -38,26 +70,21 @@ function UniformLine({ item, index }: { item: (typeof UNIFORM_LINES)[0]; index: 
       </span>
 
       <div style={{ maxWidth: "40rem", textAlign: "center" }}>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        <p
           className="font-serif font-light"
           style={{
             fontSize: "clamp(1.5rem, 5vw, 2.5rem)",
-            color: "rgba(245,237,216,0.75)",
+            color: "rgba(245,237,216,0.9)",
             lineHeight: 1.3,
             letterSpacing: "0.02em",
             textAlign: "center",
           }}
         >
-          {item.line}
-        </motion.p>
+          {/* First half of scroll (0 to 0.4) reveals line */}
+          <ScrubbedText text={item.line} progress={scrollYProgress} range={[0, 0.45]} />
+        </p>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        <p
           className="font-serif font-light italic"
           style={{
             fontSize: "clamp(1.5rem, 5vw, 2.5rem)",
@@ -67,8 +94,9 @@ function UniformLine({ item, index }: { item: (typeof UNIFORM_LINES)[0]; index: 
             textAlign: "center",
           }}
         >
-          {item.continuation}
-        </motion.p>
+          {/* Second half of scroll (0.5 to 0.95) reveals continuation */}
+          <ScrubbedText text={item.continuation} progress={scrollYProgress} range={[0.5, 0.95]} />
+        </p>
       </div>
 
       {/* Separator */}
