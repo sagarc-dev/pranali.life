@@ -128,7 +128,9 @@ export default function CabinAnnouncements() {
         position: "relative",
         overflow: "hidden",
         padding: "8rem 1rem",
-        background: "linear-gradient(180deg, var(--color-dark) 0%, #08030d 50%, var(--color-dark) 100%)",
+        marginTop: "-25vh", // Pull it up over the empty bottom half of the pinned timeline
+        zIndex: 10,
+        background: "linear-gradient(180deg, transparent 0%, #08030d 20%, var(--color-dark) 100%)",
       }}
     >
       {/* Background glow */}

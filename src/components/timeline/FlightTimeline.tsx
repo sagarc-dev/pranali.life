@@ -43,7 +43,14 @@ export default function FlightTimeline() {
       }}
     >
       {/* ── Sticky Container ── */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center">
+      <div 
+        className="w-full overflow-hidden flex flex-col justify-center"
+        style={{
+          position: "sticky",
+          top: 0,
+          height: "100vh"
+        }}
+      >
       <CloudLayer density="medium" />
 
       {/* ── Background Animated Flight Path ── */}

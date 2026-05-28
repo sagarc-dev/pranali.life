@@ -49,7 +49,7 @@ export default function Home() {
       {loaded && (
         <>
           <Navigation />
-          <main>
+          <main style={{ overflowX: "clip" }}>
             <ScrollSidebar />
             
             {/* Section 1 — Airport Intro */}
