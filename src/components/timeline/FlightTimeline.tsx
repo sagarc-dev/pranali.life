@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
-import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useInView, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import Image from "next/image";
 import { JOURNEY_STOPS } from "@/lib/constants";
 import CloudLayer from "@/components/shared/CloudLayer";
@@ -15,7 +15,18 @@ export default function FlightTimeline() {
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start center", "end center"],
+    offset: ["start start", "end end"],
+  });
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    // Determine active stop based on scroll progress
+    const index = Math.min(
+      JOURNEY_STOPS.length - 1,
+      Math.max(0, Math.floor(latest * JOURNEY_STOPS.length))
+    );
+    if (activeStop?.id !== JOURNEY_STOPS[index].id) {
+      setActiveStop(JOURNEY_STOPS[index]);
+    }
   });
 
   const pathLength = useTransform(scrollYProgress, [0, 1], [0, 1]);
@@ -27,10 +38,12 @@ export default function FlightTimeline() {
       ref={sectionRef}
       style={{
         position: "relative",
-        overflow: "hidden",
+        height: "300vh", // The pinned scroll distance
         background: "linear-gradient(180deg, var(--color-dark) 0%, #0d0818 60%, var(--color-dark) 100%)",
       }}
     >
+      {/* ── Sticky Container ── */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center">
       <CloudLayer density="medium" />
 
       {/* ── Background Animated Flight Path ── */}
@@ -327,7 +340,16 @@ export default function FlightTimeline() {
           {JOURNEY_STOPS.map((stop) => (
             <button
               key={stop.id}
-              onClick={() => setActiveStop(stop)}
+              onClick={() => {
+                // When clicked, scroll the window to the rough position
+                const idx = JOURNEY_STOPS.findIndex(s => s.id === stop.id);
+                if (sectionRef.current) {
+                  const sectionTop = sectionRef.current.offsetTop;
+                  const sectionHeight = sectionRef.current.offsetHeight;
+                  const scrollPos = sectionTop + (idx / JOURNEY_STOPS.length) * (sectionHeight - window.innerHeight);
+                  window.scrollTo({ top: scrollPos, behavior: 'smooth' });
+                }
+              }}
               className="font-mono"
               style={{
                 display: "flex",
@@ -348,6 +370,7 @@ export default function FlightTimeline() {
             </button>
           ))}
         </div>
+      </div>
       </div>
     </section>
   );

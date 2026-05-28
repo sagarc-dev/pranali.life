@@ -5,6 +5,7 @@ import Image from "next/image";
 import ParticleField from "@/components/shared/ParticleField";
 import CloudLayer from "@/components/shared/CloudLayer";
 import { FlipChar } from "@/components/shared/ScrambleText";
+import MagneticButton from "@/components/shared/MagneticButton";
 import { SITE } from "@/lib/constants";
 function DepartureBoard() {
   const rows = [
@@ -180,24 +181,21 @@ function BoardingPass({ onBoard }: { onBoard: () => void }) {
           </div>
 
           {/* CTA Button */}
-          <motion.button
-            onHoverStart={() => setHovered(true)}
-            onHoverEnd={() => setHovered(false)}
+          <MagneticButton
+            id="board-flight-btn"
             onClick={onBoard}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full py-3.5 rounded font-mono text-sm tracking-widest transition-all duration-300"
+            className="w-full py-3.5 rounded font-mono text-sm tracking-widest transition-all duration-300 group"
             style={{
-              background: hovered
-                ? "linear-gradient(135deg, #C9952A, #F0C060)"
-                : "linear-gradient(135deg, #C41230, #8B0D22)",
-              color: hovered ? "#0A0505" : "#F5EDD8",
+              border: "1px solid rgba(201,149,42,0.3)",
+              background: "linear-gradient(135deg, #C41230, #8B0D22)",
               letterSpacing: "0.2em",
             }}
-            id="board-flight-btn"
           >
-            {hovered ? "✈ BOARD NOW" : "BEGIN JOURNEY"}
-          </motion.button>
+            <span className="text-[#F5EDD8] group-hover:text-[#0A0505] transition-colors duration-300">
+              <span className="group-hover:hidden">BEGIN JOURNEY</span>
+              <span className="hidden group-hover:inline">✈ BOARD NOW</span>
+            </span>
+          </MagneticButton>
         </div>
       </div>
     </motion.div>
