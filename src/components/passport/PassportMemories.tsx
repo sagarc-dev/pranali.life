@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import Image from "next/image";
 import ScrambleText from "@/components/shared/ScrambleText";
+import PassportGlobe from "./PassportGlobe";
 import { PASSPORT_STAMPS } from "@/lib/constants";
 
 type Stamp = (typeof PASSPORT_STAMPS)[0];
@@ -94,31 +95,7 @@ export default function PassportMemories() {
         background: "linear-gradient(180deg, var(--color-dark) 0%, #080510 50%, var(--color-dark) 100%)",
       }}
     >
-      {/* Passport texture background */}
-      <div className="absolute inset-0" style={{ zIndex: 0 }}>
-        <Image
-          src="/images/passport.png"
-          alt="Passport texture"
-          fill
-          sizes="100vw"
-          className="object-cover"
-          style={{ opacity: 0.05, filter: "blur(2px)" }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{ background: "radial-gradient(ellipse at center, transparent 30%, rgba(7,3,3,0.95) 80%)" }}
-        />
-      </div>
-
-      {/* Grid pattern */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(circle, rgba(201,149,42,0.06) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-          zIndex: 1,
-        }}
-      />
+      <PassportGlobe />
 
       <div
         style={{
