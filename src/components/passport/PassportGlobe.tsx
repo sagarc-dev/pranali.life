@@ -1,8 +1,9 @@
 "use client";
-import { useRef, useMemo } from "react";
-import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import { Stars, Sphere, useTexture } from "@react-three/drei";
+import { useRef, useMemo, useState, useEffect } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Stars } from "@react-three/drei";
 import * as THREE from "three";
+import ThreeGlobe from "three-globe";
 
 // Coordinates for the passport stamps (lat, lng)
 const LOCATIONS = [
@@ -45,15 +46,43 @@ function latLongToVector3(lat: number, lon: number, radius: number): THREE.Vecto
 
 function GlobeWithMarkers() {
   const globeRef = useRef<THREE.Group>(null);
-  
-  // Load earth texture
-  const earthTexture = useTexture("/images/earth-blue-marble.jpg");
-  
+  const [globeData, setGlobeData] = useState<any>(null);
+
+  useEffect(() => {
+    fetch("/countries.geojson")
+      .then((res) => res.json())
+      .then((data) => setGlobeData(data.features))
+      .catch((err) => console.error("Error loading countries:", err));
+  }, []);
+
+  // Initialize ThreeGlobe
+  const GlobeObj = useMemo(() => {
+    if (!globeData) return null;
+
+    const globe = new ThreeGlobe()
+      .hexPolygonsData(globeData)
+      .hexPolygonResolution(3)
+      .hexPolygonMargin(0.3)
+      .hexPolygonColor(() => "rgba(201,149,42,0.8)")
+      .showAtmosphere(true)
+      .atmosphereColor("#C9952A")
+      .atmosphereAltitude(0.15);
+
+    // Make the base globe invisible/dark
+    const globeMaterial = new THREE.MeshBasicMaterial({ 
+      color: "#0A0410",
+      transparent: true,
+      opacity: 0.95
+    });
+    globe.globeMaterial(globeMaterial);
+
+    return globe;
+  }, [globeData]);
+
   // Rotate slowly over time
   useFrame((state) => {
     if (globeRef.current) {
       globeRef.current.rotation.y = state.clock.getElapsedTime() * 0.05;
-      // Slight tilt
       globeRef.current.rotation.x = 0.2;
       globeRef.current.rotation.z = 0.1;
     }
@@ -61,15 +90,15 @@ function GlobeWithMarkers() {
 
   const markers = useMemo(() => {
     return LOCATIONS.map((loc) => {
-      // Radius slightly larger than the globe to sit on the surface
-      const pos = latLongToVector3(loc.lat, loc.lng, 2.01);
+      // ThreeGlobe default radius is 100. We'll use 100.5 for markers.
+      const pos = latLongToVector3(loc.lat, loc.lng, 100.5);
       return (
         <mesh key={loc.city} position={pos}>
-          <sphereGeometry args={[0.03, 16, 16]} />
-          <meshBasicMaterial color="#F0C060" />
-          {/* Add a subtle glow/halo around the marker */}
+          <sphereGeometry args={[1.5, 16, 16]} />
+          <meshBasicMaterial color="#ffffff" />
+          {/* Intense golden halo around the marker */}
           <mesh>
-            <sphereGeometry args={[0.06, 16, 16]} />
+            <sphereGeometry args={[3.5, 16, 16]} />
             <meshBasicMaterial color="#C9952A" transparent opacity={0.6} />
           </mesh>
         </mesh>
@@ -78,16 +107,8 @@ function GlobeWithMarkers() {
   }, []);
 
   return (
-    <group ref={globeRef}>
-      {/* Real Earth Sphere */}
-      <Sphere args={[2, 64, 64]}>
-        <meshStandardMaterial 
-          map={earthTexture} 
-          roughness={0.6}
-          metalness={0.1}
-        />
-      </Sphere>
-
+    <group ref={globeRef} scale={[0.02, 0.02, 0.02]}>
+      {GlobeObj && <primitive object={GlobeObj} />}
       {/* City markers */}
       {markers}
     </group>
@@ -96,10 +117,9 @@ function GlobeWithMarkers() {
 
 export default function PassportGlobe() {
   return (
-    <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
-      {/* Dark overlay gradient to blend edges */}
+    <div className="absolute inset-0 z-0 pointer-events-none">
       <div 
-        className="absolute inset-0 z-10 pointer-events-none" 
+        className="absolute inset-0 pointer-events-none z-10" 
         style={{ 
           background: "radial-gradient(ellipse at center, transparent 30%, var(--color-dark) 90%)" 
         }} 
@@ -108,10 +128,10 @@ export default function PassportGlobe() {
         {/* Deep space starfield */}
         <Stars radius={100} depth={50} count={3000} factor={4} saturation={0} fade speed={1} />
         
-        {/* Lighting for the earth */}
-        <ambientLight intensity={0.2} />
-        <directionalLight position={[5, 3, 5]} intensity={1.5} color="#fffcf5" />
-        <directionalLight position={[-5, -3, -5]} intensity={0.3} color="#8ab4f8" />
+        {/* Lighting for the globe */}
+        <ambientLight intensity={0.6} />
+        <directionalLight position={[10, 10, 10]} intensity={1.5} color="#fffcf5" />
+        <directionalLight position={[-10, -10, -10]} intensity={0.5} color="#8ab4f8" />
         
         <GlobeWithMarkers />
       </Canvas>
