@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import Lenis from "lenis";
 import LoadingScreen from "@/components/shared/LoadingScreen";
 import Navigation from "@/components/shared/Navigation";
+import ScrollSidebar from "@/components/shared/ScrollSidebar";
 import AirportIntro from "@/components/intro/AirportIntro";
 import FlightTimeline from "@/components/timeline/FlightTimeline";
 import CabinAnnouncements from "@/components/announcements/CabinAnnouncements";
@@ -49,6 +50,8 @@ export default function Home() {
         <>
           <Navigation />
           <main>
+            <ScrollSidebar />
+            
             {/* Section 1 — Airport Intro */}
             <AirportIntro />
 
