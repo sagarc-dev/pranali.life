@@ -4,49 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import ParticleField from "@/components/shared/ParticleField";
 import CloudLayer from "@/components/shared/CloudLayer";
+import { FlipChar } from "@/components/shared/ScrambleText";
+import MagneticButton from "@/components/shared/MagneticButton";
 import { SITE } from "@/lib/constants";
-
-// Animated flip-board style character
-function FlipChar({ char, delay }: { char: string; delay: number }) {
-  const [current, setCurrent] = useState("_");
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -:".split("");
-
-  useEffect(() => {
-    let count = 0;
-    const target = char.toUpperCase();
-    const maxFlips = 8;
-
-    const timer = setTimeout(() => {
-      const interval = setInterval(() => {
-        if (count >= maxFlips) {
-          setCurrent(target);
-          clearInterval(interval);
-          return;
-        }
-        setCurrent(chars[Math.floor(Math.random() * chars.length)]);
-        count++;
-      }, 60);
-      return () => clearInterval(interval);
-    }, delay);
-
-    return () => clearTimeout(timer);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [char, delay]);
-
-  return (
-    <span
-      className="font-mono inline-block"
-      style={{
-        color: current === char.toUpperCase() ? "#F0C060" : "rgba(240,192,96,0.5)",
-        transition: "color 0.1s",
-        minWidth: char === " " ? "0.5em" : "0.7em",
-      }}
-    >
-      {current}
-    </span>
-  );
-}
-
 function DepartureBoard() {
   const rows = [
     { flight: "AI-271", destination: "DREAMS", time: "NOW", status: "BOARDING", statusColor: "#C9952A" },
@@ -160,8 +120,8 @@ function BoardingPass({ onBoard }: { onBoard: () => void }) {
                 PASSENGER
               </p>
               <h2
-                className="font-serif text-3xl font-light tracking-wide"
-                style={{ color: "#F5EDD8" }}
+                className="font-serif"
+                style={{ color: "#F5EDD8", fontSize: "clamp(1.4rem, 5vw, 1.75rem)", fontWeight: 500, letterSpacing: "0.02em" }}
               >
                 {SITE.name.toUpperCase()}
               </h2>
@@ -221,24 +181,21 @@ function BoardingPass({ onBoard }: { onBoard: () => void }) {
           </div>
 
           {/* CTA Button */}
-          <motion.button
-            onHoverStart={() => setHovered(true)}
-            onHoverEnd={() => setHovered(false)}
+          <MagneticButton
+            id="board-flight-btn"
             onClick={onBoard}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full py-3.5 rounded font-mono text-sm tracking-widest transition-all duration-300"
+            className="w-full py-3.5 rounded font-mono text-sm tracking-widest transition-all duration-300 group"
             style={{
-              background: hovered
-                ? "linear-gradient(135deg, #C9952A, #F0C060)"
-                : "linear-gradient(135deg, #C41230, #8B0D22)",
-              color: hovered ? "#0A0505" : "#F5EDD8",
+              border: "1px solid rgba(201,149,42,0.3)",
+              background: "linear-gradient(135deg, #C41230, #8B0D22)",
               letterSpacing: "0.2em",
             }}
-            id="board-flight-btn"
           >
-            {hovered ? "✈ BOARD NOW" : "BEGIN JOURNEY"}
-          </motion.button>
+            <span className="text-[#F5EDD8] group-hover:text-[#0A0505] transition-colors duration-300">
+              <span className="group-hover:hidden">BEGIN JOURNEY</span>
+              <span className="hidden group-hover:inline">✈ BOARD NOW</span>
+            </span>
+          </MagneticButton>
         </div>
       </div>
     </motion.div>
@@ -264,9 +221,10 @@ export default function AirportIntro() {
       {/* Background Image */}
       <div className="absolute inset-0" style={{ zIndex: 0 }}>
         <Image
-          src="/images/airport-terminal.png"
+          src="/pranali/at_sea.jpg"
           alt="Luxury airport terminal"
           fill
+          sizes="100vw"
           className="object-cover"
           style={{ opacity: 0.12 }}
           priority
@@ -310,11 +268,12 @@ export default function AirportIntro() {
           transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="font-serif mb-2"
           style={{
-            fontSize: "clamp(3rem, 8vw, 5.5rem)",
-            lineHeight: 1,
+            fontSize: "clamp(2.8rem, 9vw, 5.5rem)",
+            lineHeight: 1.05,
             color: "#F5EDD8",
-            fontWeight: 300,
-            letterSpacing: "0.08em",
+            fontWeight: 400,
+            letterSpacing: "0.04em",
+            textAlign: "center",
           }}
         >
           {SITE.name}
@@ -334,10 +293,10 @@ export default function AirportIntro() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="font-serif text-lg font-light italic mb-10"
-          style={{ color: "rgba(245,237,216,0.5)" }}
+          className="font-serif italic mb-10"
+          style={{ color: "rgba(245,237,216,0.5)", fontSize: "clamp(1rem, 3.5vw, 1.15rem)", fontStyle: "italic", textAlign: "center" }}
         >
-          "A journey of transformation through the skies."
+          &ldquo;A journey of transformation through the skies.&rdquo;
         </motion.p>
 
         {/* Gold Divider */}

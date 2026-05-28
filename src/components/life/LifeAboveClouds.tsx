@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import CloudLayer from "@/components/shared/CloudLayer";
+import ScrambleText from "@/components/shared/ScrambleText";
 import { CABIN_REALITIES } from "@/lib/constants";
 
 function RealityCard({ item, index }: { item: (typeof CABIN_REALITIES)[0]; index: number }) {
@@ -15,49 +16,48 @@ function RealityCard({ item, index }: { item: (typeof CABIN_REALITIES)[0]; index
       initial={{ opacity: 0, y: 50 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
-      className="glass-dark rounded-2xl overflow-hidden group hover:border-gold-dim transition-all duration-500"
-      style={{
-        border: "1px solid rgba(201,149,42,0.12)",
-      }}
+      className="glass-dark rounded-2xl overflow-hidden"
+      style={{ border: "1px solid rgba(201,149,42,0.12)" }}
     >
-      <div className="p-6">
-        {/* Time badge */}
-        <div className="flex items-center justify-between mb-4">
+      <div style={{ padding: "1.5rem" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem" }}>
           <span
-            className="font-mono text-xs px-3 py-1 rounded-full"
+            className="font-mono"
             style={{
               background: "rgba(196,18,48,0.1)",
               color: "#C41230",
               border: "1px solid rgba(196,18,48,0.2)",
               letterSpacing: "0.1em",
+              fontSize: "0.65rem",
+              padding: "3px 10px",
+              borderRadius: "999px",
             }}
           >
             {item.time.toUpperCase()}
           </span>
-          <span className="text-2xl">{item.icon}</span>
+          <span style={{ fontSize: "1.5rem" }}>{item.icon}</span>
         </div>
 
         <h3
-          className="font-serif text-xl font-light mb-3"
-          style={{ color: "#F5EDD8" }}
+          className="font-serif font-light"
+          style={{ color: "#F5EDD8", fontSize: "clamp(1.1rem, 3vw, 1.3rem)", marginBottom: "0.75rem" }}
         >
           {item.title}
         </h3>
         <p
-          className="font-sans text-sm leading-relaxed"
-          style={{ color: "rgba(245,237,216,0.6)", lineHeight: 1.8 }}
+          className="font-sans"
+          style={{ color: "rgba(245,237,216,0.6)", lineHeight: 1.8, fontSize: "0.9rem" }}
         >
           {item.body}
         </p>
 
-        {/* Gold hover line */}
-        <motion.div
-          className="mt-5 h-px"
+        <div
           style={{
+            marginTop: "1.25rem",
+            height: "1px",
             background: "linear-gradient(90deg, #C9952A, transparent)",
-            opacity: 0,
+            opacity: 0.3,
           }}
-          whileHover={{ opacity: 1 }}
         />
       </div>
     </motion.div>
@@ -72,29 +72,61 @@ export default function LifeAboveClouds() {
     <section
       id="life"
       ref={sectionRef}
-      className="relative min-h-screen py-28 overflow-hidden"
-      style={{ background: "var(--color-dark)" }}
+      style={{
+        position: "relative",
+        overflow: "hidden",
+        padding: "8rem 0",
+        background: "var(--color-dark)",
+      }}
     >
       <CloudLayer density="heavy" />
 
       {/* Diagonal gradient overlay */}
       <div
-        className="absolute inset-0 pointer-events-none"
         style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
           background: "linear-gradient(135deg, rgba(196,18,48,0.04) 0%, transparent 50%, rgba(13,24,42,0.3) 100%)",
           zIndex: 0,
         }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-6" style={{ zIndex: 1 }}>
-        {/* Header */}
-        <div className="text-center mb-20">
+      {/* ── All content in one centered column ── */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 1,
+          maxWidth: "80rem",
+          margin: "0 auto",
+          padding: "0 1rem",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        {/* Section Header */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100%",
+            marginBottom: "4rem",
+          }}
+        >
           <motion.p
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 1 }}
-            className="font-mono text-xs tracking-[0.4em] mb-4"
-            style={{ color: "rgba(201,149,42,0.7)" }}
+            className="font-mono"
+            style={{
+              color: "rgba(201,149,42,0.7)",
+              textAlign: "center",
+              letterSpacing: "0.4em",
+              fontSize: "0.65rem",
+              marginBottom: "1rem",
+            }}
           >
             ✦ LIFE ABOVE THE CLOUDS ✦
           </motion.p>
@@ -103,21 +135,33 @@ export default function LifeAboveClouds() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="font-serif font-light mb-4"
-            style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", color: "#F5EDD8" }}
+            className="font-serif font-light"
+            style={{
+              fontSize: "clamp(2.2rem, 9vw, 4.5rem)",
+              color: "#F5EDD8",
+              textAlign: "center",
+              lineHeight: 1.15,
+              marginBottom: "1rem",
+            }}
           >
-            Beyond the Uniform
+            <ScrambleText text="Beyond the Uniform" />
           </motion.h2>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 1, delay: 0.4 }}
-            className="font-serif italic text-lg max-w-2xl mx-auto"
-            style={{ color: "rgba(245,237,216,0.45)", lineHeight: 1.8 }}
+            className="font-serif italic"
+            style={{
+              color: "rgba(245,237,216,0.45)",
+              lineHeight: 1.8,
+              textAlign: "center",
+              fontSize: "clamp(0.95rem, 3.5vw, 1.1rem)",
+              maxWidth: "36rem",
+            }}
           >
-            Flight attendants are not just faces in the aisle. They are first responders, 
-            safety officers, cultural ambassadors, and human beings carrying the weight of 
+            Flight attendants are not just faces in the aisle. They are first responders,
+            safety officers, cultural ambassadors, and human beings carrying the weight of
             responsibility at 35,000 feet.
           </motion.p>
         </div>
@@ -127,66 +171,81 @@ export default function LifeAboveClouds() {
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1.2, delay: 0.3 }}
-          className="relative rounded-3xl overflow-hidden mb-16"
           style={{
-            minHeight: "420px",
+            position: "relative",
+            borderRadius: "1.5rem",
+            overflow: "hidden",
+            marginBottom: "4rem",
+            minHeight: "400px",
+            width: "100%",
             border: "1px solid rgba(201,149,42,0.15)",
           }}
         >
           <Image
             src="/pranali/at_plane_door.jpg"
-            alt="Airport terminal atmosphere"
+            alt="Pranali at aircraft door"
             fill
+            sizes="(max-width: 1280px) 100vw, 1280px"
             className="object-cover"
-            style={{ opacity: 0.3 }}
+            style={{ opacity: 0.45 }}
           />
 
           <div
-            className="absolute inset-0"
             style={{
+              position: "absolute",
+              inset: 0,
               background: "linear-gradient(90deg, rgba(7,3,3,0.95) 0%, rgba(7,3,3,0.6) 50%, rgba(7,3,3,0.2) 100%)",
             }}
           />
 
-          <div className="relative flex items-center h-full min-h-[420px] p-12">
-            <div className="max-w-xl">
+          <div style={{ position: "relative", display: "flex", alignItems: "center", minHeight: "400px", padding: "2.5rem 2rem" }}>
+            <div style={{ maxWidth: "32rem" }}>
               <span
-                className="font-mono text-xs tracking-widest mb-6 block"
-                style={{ color: "#C9952A" }}
+                className="font-mono"
+                style={{ color: "#C9952A", fontSize: "0.65rem", letterSpacing: "0.15em", display: "block", marginBottom: "1rem" }}
               >
                 THE TRUTH BEHIND THE SMILE
               </span>
               <h3
-                className="font-serif font-light mb-6"
-                style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", color: "#F5EDD8", lineHeight: 1.2 }}
+                className="font-serif font-light"
+                style={{ fontSize: "clamp(1.5rem, 4vw, 2.5rem)", color: "#F5EDD8", lineHeight: 1.3, marginBottom: "1rem" }}
               >
-                "She is trained to keep you safe
+                &ldquo;She is trained to keep you safe
                 <br />
-                <span style={{ color: "#C9952A" }}>before she is trained to smile."</span>
+                <span style={{ color: "#C9952A" }}>before she is trained to smile.&rdquo;</span>
               </h3>
               <p
-                className="font-sans text-sm leading-relaxed"
-                style={{ color: "rgba(245,237,216,0.6)", lineHeight: 1.9 }}
+                className="font-sans"
+                style={{ color: "rgba(245,237,216,0.6)", lineHeight: 1.9, fontSize: "0.9rem" }}
               >
-                Every flight attendant undergoes rigorous safety training — fire drills, 
-                evacuation procedures, water landings, first aid. The uniform is not a costume. 
+                Every flight attendant undergoes rigorous safety training &mdash; fire drills,
+                evacuation procedures, water landings, first aid. The uniform is not a costume.
                 It is a promise.
               </p>
             </div>
           </div>
 
-          {/* Portrait overlay on right */}
+          {/* Portrait overlay on right — desktop only */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 1.2, delay: 0.6 }}
-            className="absolute right-0 top-0 bottom-0 w-1/2 hidden lg:block"
-            style={{ pointerEvents: "none" }}
+            style={{
+              position: "absolute",
+              right: 0,
+              top: 0,
+              bottom: 0,
+              width: "50%",
+              pointerEvents: "none",
+              display: "none",
+            }}
+            className="lg:block"
           >
             <Image
               src="/pranali/in_blue_air_india_uniform.jpg"
               alt="Pranali in uniform"
               fill
+              sizes="50vw"
               className="object-cover object-top"
               style={{ opacity: 0.55, maskImage: "linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.8) 40%)" }}
             />
@@ -194,7 +253,14 @@ export default function LifeAboveClouds() {
         </motion.div>
 
         {/* Reality Cards Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 20rem), 1fr))",
+            gap: "1.5rem",
+            width: "100%",
+          }}
+        >
           {CABIN_REALITIES.map((item, i) => (
             <RealityCard key={i} item={item} index={i} />
           ))}
@@ -205,16 +271,16 @@ export default function LifeAboveClouds() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, delay: 0.8 }}
-          className="text-center mt-20"
+          style={{ textAlign: "center", marginTop: "5rem", width: "100%" }}
         >
-          <div className="divider-gold mx-auto w-48 mb-8" />
+          <div className="divider-gold" style={{ width: "8rem", margin: "0 auto 2rem" }} />
           <p
-            className="font-serif text-2xl font-light italic"
-            style={{ color: "rgba(245,237,216,0.5)", lineHeight: 1.6 }}
+            className="font-serif font-light italic"
+            style={{ color: "rgba(245,237,216,0.5)", lineHeight: 1.7, fontSize: "clamp(1.1rem, 4vw, 1.5rem)", textAlign: "center" }}
           >
-            "She doesn't just serve meals at 35,000 feet.
+            &ldquo;She doesn&rsquo;t just serve meals at 35,000 feet.
             <br />
-            <span style={{ color: "#C9952A" }}>She holds the sky together."</span>
+            <span style={{ color: "#C9952A" }}>She holds the sky together.&rdquo;</span>
           </p>
         </motion.div>
       </div>

@@ -2,6 +2,8 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import Image from "next/image";
+import ScrambleText from "@/components/shared/ScrambleText";
+import PassportGlobe from "./PassportGlobe";
 import { PASSPORT_STAMPS } from "@/lib/constants";
 
 type Stamp = (typeof PASSPORT_STAMPS)[0];
@@ -37,6 +39,7 @@ function PassportStamp({
       onClick={onClick}
       className="cursor-pointer select-none"
       style={{ position: "relative", display: "inline-block" }}
+      layoutId={`stamp-${stamp.city}`}
     >
       <div
         className="flex flex-col items-center justify-center gap-1 px-4 py-3 rounded"
@@ -88,45 +91,48 @@ export default function PassportMemories() {
     <section
       id="passport"
       ref={sectionRef}
-      className="relative min-h-screen py-28 overflow-hidden"
+      className="relative min-h-screen py-36 overflow-hidden"
       style={{
         background: "linear-gradient(180deg, var(--color-dark) 0%, #080510 50%, var(--color-dark) 100%)",
       }}
     >
-      {/* Passport texture background */}
-      <div className="absolute inset-0" style={{ zIndex: 0 }}>
-        <Image
-          src="/images/passport.png"
-          alt="Passport texture"
-          fill
-          className="object-cover"
-          style={{ opacity: 0.05, filter: "blur(2px)" }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{ background: "radial-gradient(ellipse at center, transparent 30%, rgba(7,3,3,0.95) 80%)" }}
-        />
-      </div>
+      <PassportGlobe />
 
-      {/* Grid pattern */}
       <div
-        className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: "radial-gradient(circle, rgba(201,149,42,0.06) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-          zIndex: 1,
+          position: "relative",
+          zIndex: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          maxWidth: "72rem",
+          margin: "0 auto",
+          padding: "0 1rem",
         }}
-      />
-
-      <div className="relative max-w-6xl mx-auto px-6" style={{ zIndex: 2 }}>
+      >
         {/* Header */}
-        <div className="text-center mb-16">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100%",
+            marginBottom: "3rem",
+          }}
+        >
           <motion.p
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 1 }}
-            className="font-mono text-xs tracking-[0.4em] mb-4"
-            style={{ color: "rgba(201,149,42,0.7)" }}
+            className="font-mono"
+            style={{
+              color: "rgba(201,149,42,0.7)",
+              textAlign: "center",
+              width: "100%",
+              letterSpacing: "0.4em",
+              fontSize: "0.65rem",
+              marginBottom: "1rem",
+            }}
           >
             ✦ PASSPORT MEMORIES ✦
           </motion.p>
@@ -135,16 +141,29 @@ export default function PassportMemories() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="font-serif font-light"
-            style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", color: "#F5EDD8" }}
+            style={{
+              fontSize: "clamp(2.2rem, 9vw, 4.5rem)",
+              color: "#F5EDD8",
+              textAlign: "center",
+              width: "100%",
+              lineHeight: 1.15,
+            }}
           >
-            Cities & Stories
+            <ScrambleText text="Cities & Stories" />
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 1, delay: 0.4 }}
-            className="font-mono text-xs tracking-widest mt-3"
-            style={{ color: "rgba(201,149,42,0.5)" }}
+            className="font-mono"
+            style={{
+              color: "rgba(201,149,42,0.5)",
+              textAlign: "center",
+              width: "100%",
+              letterSpacing: "0.1em",
+              fontSize: "0.65rem",
+              marginTop: "0.75rem",
+            }}
           >
             CLICK A STAMP TO OPEN A MEMORY
           </motion.p>
@@ -250,6 +269,7 @@ export default function PassportMemories() {
                 border: `1px solid ${activeStamp.color}50`,
               }}
               onClick={(e) => e.stopPropagation()}
+              layoutId={`stamp-${activeStamp.city}`}
             >
               {/* Header */}
               <div
@@ -304,6 +324,7 @@ export default function PassportMemories() {
                       src={activeStamp.photo}
                       alt={activeStamp.city}
                       fill
+                      sizes="(max-width: 768px) 100vw, 512px"
                       className="object-cover"
                       style={{ opacity: 0.85 }}
                     />

@@ -1,11 +1,44 @@
 "use client";
 import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import ScrambleText from "@/components/shared/ScrambleText";
 import { UNIFORM_LINES } from "@/lib/constants";
+
+function Word({ children, progress, range }: { children: string; progress: any; range: [number, number] }) {
+  const opacity = useTransform(progress, range, [0.2, 1]);
+  const y = useTransform(progress, range, [10, 0]);
+  return (
+    <motion.span style={{ opacity, y, display: "inline-block", marginRight: "0.25em" }}>
+      {children}
+    </motion.span>
+  );
+}
+
+function ScrubbedText({ text, progress, range }: { text: string; progress: any; range: [number, number] }) {
+  const words = text.split(" ");
+  const step = (range[1] - range[0]) / words.length;
+  return (
+    <>
+      {words.map((word, i) => {
+        const start = range[0] + i * step;
+        const end = start + step;
+        return (
+          <Word key={i} progress={progress} range={[start, end]}>
+            {word}
+          </Word>
+        );
+      })}
+    </>
+  );
+}
 
 function UniformLine({ item, index }: { item: (typeof UNIFORM_LINES)[0]; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 80%", "end 40%"],
+  });
 
   return (
     <motion.div
@@ -13,46 +46,57 @@ function UniformLine({ item, index }: { item: (typeof UNIFORM_LINES)[0]; index: 
       initial={{ opacity: 0 }}
       animate={inView ? { opacity: 1 } : {}}
       transition={{ duration: 1.5, delay: 0.1 }}
-      className="relative min-h-[50vh] flex items-center justify-center px-6 py-16"
+      style={{
+        position: "relative",
+        minHeight: "55vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "4rem 1.5rem",
+      }}
     >
-      {/* Subtle line number */}
+      {/* Line number */}
       <span
-        className="absolute top-8 left-8 font-mono"
-        style={{ color: "rgba(201,149,42,0.15)", fontSize: "0.65rem" }}
+        className="font-mono"
+        style={{
+          position: "absolute",
+          top: "2rem",
+          left: "1rem",
+          color: "rgba(201,149,42,0.15)",
+          fontSize: "0.6rem",
+        }}
       >
         {String(index + 1).padStart(2, "0")}
       </span>
 
-      <div className="text-center max-w-3xl mx-auto">
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+      <div style={{ maxWidth: "40rem", textAlign: "center" }}>
+        <p
           className="font-serif font-light"
           style={{
-            fontSize: "clamp(1.6rem, 4vw, 2.8rem)",
-            color: "rgba(245,237,216,0.75)",
+            fontSize: "clamp(1.5rem, 5vw, 2.5rem)",
+            color: "rgba(245,237,216,0.9)",
             lineHeight: 1.3,
             letterSpacing: "0.02em",
+            textAlign: "center",
           }}
         >
-          {item.line}
-        </motion.p>
+          {/* First half of scroll (0 to 0.4) reveals line */}
+          <ScrubbedText text={item.line} progress={scrollYProgress} range={[0, 0.45]} />
+        </p>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        <p
           className="font-serif font-light italic"
           style={{
-            fontSize: "clamp(1.6rem, 4vw, 2.8rem)",
+            fontSize: "clamp(1.5rem, 5vw, 2.5rem)",
             color: "#C9952A",
             lineHeight: 1.3,
             marginTop: "0.2em",
+            textAlign: "center",
           }}
         >
-          {item.continuation}
-        </motion.p>
+          {/* Second half of scroll (0.5 to 0.95) reveals continuation */}
+          <ScrubbedText text={item.continuation} progress={scrollYProgress} range={[0.5, 0.95]} />
+        </p>
       </div>
 
       {/* Separator */}
@@ -61,8 +105,15 @@ function UniformLine({ item, index }: { item: (typeof UNIFORM_LINES)[0]; index: 
           initial={{ scaleX: 0 }}
           animate={inView ? { scaleX: 1 } : {}}
           transition={{ duration: 1.5, delay: 0.8 }}
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-px"
-          style={{ background: "rgba(201,149,42,0.2)" }}
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "4rem",
+            height: "1px",
+            background: "rgba(201,149,42,0.2)",
+          }}
         />
       )}
     </motion.div>
@@ -84,36 +135,47 @@ export default function BehindTheUniform() {
     <section
       id="uniform"
       ref={sectionRef}
-      className="relative overflow-hidden"
-      style={{ background: "var(--color-dark)" }}
+      style={{ position: "relative", overflow: "hidden", background: "var(--color-dark)" }}
     >
       {/* Parallax warm light background */}
-      <motion.div
-        style={{ y: bgY }}
-        className="absolute inset-0 pointer-events-none"
-      >
+      <motion.div style={{ y: bgY, position: "absolute", inset: 0, pointerEvents: "none" }}>
         <div
-          className="absolute inset-0"
           style={{
-            background: "radial-gradient(ellipse at 50% 40%, rgba(196,18,48,0.08) 0%, transparent 60%)",
+            position: "absolute",
+            inset: 0,
+            background: "radial-gradient(ellipse at 50% 40%, rgba(196,18,48,0.07) 0%, transparent 60%)",
           }}
         />
         <div
-          className="absolute inset-0"
           style={{
-            background: "radial-gradient(ellipse at 50% 70%, rgba(201,149,42,0.05) 0%, transparent 50%)",
+            position: "absolute",
+            inset: 0,
+            background: "radial-gradient(ellipse at 50% 70%, rgba(201,149,42,0.04) 0%, transparent 50%)",
           }}
         />
       </motion.div>
 
       {/* Header */}
-      <div className="relative text-center pt-32 pb-12 px-6" style={{ zIndex: 1 }}>
+      <div
+        style={{
+          position: "relative",
+          zIndex: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
+          paddingTop: "8rem",
+          paddingBottom: "3rem",
+          paddingLeft: "1rem",
+          paddingRight: "1rem",
+        }}
+      >
         <motion.p
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 1 }}
-          className="font-mono text-xs tracking-[0.4em] mb-4"
-          style={{ color: "rgba(201,149,42,0.7)" }}
+          className="font-mono"
+          style={{ color: "rgba(201,149,42,0.7)", textAlign: "center", letterSpacing: "0.4em", fontSize: "0.65rem", marginBottom: "1rem" }}
         >
           ✦ BEHIND THE UNIFORM ✦
         </motion.p>
@@ -123,36 +185,46 @@ export default function BehindTheUniform() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="font-serif font-light"
-          style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", color: "#F5EDD8" }}
+          style={{ fontSize: "clamp(2.2rem, 9vw, 4.5rem)", color: "#F5EDD8", textAlign: "center" }}
         >
-          Her Story
+          <ScrambleText text="Her Story" />
         </motion.h2>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 1, delay: 0.4 }}
-          className="font-serif italic text-lg mt-4 max-w-lg mx-auto"
-          style={{ color: "rgba(245,237,216,0.4)", lineHeight: 1.8 }}
+          className="font-serif italic"
+          style={{ color: "rgba(245,237,216,0.4)", lineHeight: 1.8, textAlign: "center", fontSize: "clamp(0.9rem, 3.5vw, 1.1rem)", marginTop: "0.75rem", maxWidth: "28rem" }}
         >
           The most honest section of this journey.
           <br />
           Read slowly.
         </motion.p>
 
-        <div className="divider-gold mx-auto w-48 mt-8" />
+        <div className="divider-gold" style={{ width: "8rem", margin: "2rem auto 0" }} />
       </div>
 
       {/* Quote Lines */}
-      <div className="relative" style={{ zIndex: 1 }}>
+      <div style={{ position: "relative", zIndex: 1 }}>
         {UNIFORM_LINES.map((item, i) => (
           <UniformLine key={i} item={item} index={i} />
         ))}
       </div>
 
       {/* Final emotional close */}
-      <div className="relative text-center pb-32 pt-8 px-6" style={{ zIndex: 1 }}>
-        <div className="divider-gold mx-auto w-48 mb-12" />
+      <div
+        style={{
+          position: "relative",
+          zIndex: 1,
+          textAlign: "center",
+          paddingBottom: "7rem",
+          paddingTop: "2rem",
+          paddingLeft: "1rem",
+          paddingRight: "1rem",
+        }}
+      >
+        <div className="divider-gold" style={{ width: "8rem", margin: "0 auto 3rem" }} />
 
         <motion.p
           initial={{ opacity: 0, y: 30 }}
@@ -161,17 +233,18 @@ export default function BehindTheUniform() {
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
           className="font-serif font-light"
           style={{
-            fontSize: "clamp(1.2rem, 3vw, 1.8rem)",
+            fontSize: "clamp(1.1rem, 4.5vw, 1.7rem)",
             color: "rgba(245,237,216,0.5)",
             lineHeight: 1.8,
-            maxWidth: "600px",
+            maxWidth: "36rem",
             margin: "0 auto",
+            textAlign: "center",
           }}
         >
           From nursing halls to aircraft aisles,
           <br />
           from government corridors to{" "}
-          <span style={{ color: "#C9952A" }}>the open sky</span> —
+          <span style={{ color: "#C9952A" }}>the open sky</span> &mdash;
           <br />
           this is not a career change.
           <br />

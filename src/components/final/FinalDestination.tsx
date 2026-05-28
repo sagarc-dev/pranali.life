@@ -2,6 +2,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
+import MagneticButton from "@/components/shared/MagneticButton";
 import { SITE } from "@/lib/constants";
 
 function SocialLink({
@@ -17,25 +18,22 @@ function SocialLink({
 }) {
   const [hovered, setHovered] = useState(false);
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="flex items-center gap-3 px-6 py-3 rounded-full font-mono text-xs tracking-widest transition-all duration-300"
+    <MagneticButton
+      onClick={() => window.open(href, "_blank", "noopener,noreferrer")}
+      hoverBackground={color}
+      className="flex items-center gap-3 px-6 py-3 rounded-full font-mono text-xs tracking-widest transition-all duration-300 group"
       style={{
-        background: hovered ? color : "rgba(245,237,216,0.04)",
-        border: `1px solid ${hovered ? color : "rgba(245,237,216,0.1)"}`,
-        color: hovered ? "#0A0505" : "rgba(245,237,216,0.6)",
-        transform: hovered ? "translateY(-2px)" : "translateY(0)",
-        boxShadow: hovered ? `0 8px 30px ${color}40` : "none",
+        background: "rgba(245,237,216,0.04)",
+        border: `1px solid rgba(245,237,216,0.1)`,
+        color: "rgba(245,237,216,0.6)",
         letterSpacing: "0.15em",
       }}
     >
-      <span style={{ fontSize: "1rem" }}>{icon}</span>
-      {label.toUpperCase()}
-    </a>
+      <span className="flex items-center gap-3 group-hover:text-[#0A0505] transition-colors duration-300">
+        <span style={{ fontSize: "1rem" }}>{icon}</span>
+        {label.toUpperCase()}
+      </span>
+    </MagneticButton>
   );
 }
 
@@ -64,9 +62,10 @@ export default function FinalDestination() {
         aria-hidden="true"
       >
         <Image
-          src="/images/sunset-clouds.png"
+          src="/pranali/at_sea.jpg"
           alt="Sunset above clouds"
           fill
+          sizes="100vw"
           className="object-cover"
           style={{ opacity: 0.25 }}
         />
@@ -103,9 +102,10 @@ export default function FinalDestination() {
           }}
         >
           <Image
-            src="/images/sunset-clouds.png"
+            src="/pranali/at_sea.jpg"
             alt="Sunset view from aircraft window"
             fill
+            sizes="224px"
             className="object-cover"
           />
           <div
@@ -140,19 +140,19 @@ export default function FinalDestination() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="font-serif font-light mb-4"
-          style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "#F5EDD8", lineHeight: 1.2 }}
+          style={{ fontSize: "clamp(1.8rem, 7vw, 3.5rem)", color: "#F5EDD8", lineHeight: 1.25, textAlign: "center" }}
         >
-          "Some journeys begin
+          &ldquo;Some journeys begin
           <br />
-          <span style={{ color: "#C9952A" }}>after turbulence."</span>
+          <span style={{ color: "#C9952A" }}>after turbulence.&rdquo;</span>
         </motion.h2>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 1, delay: 0.6 }}
-          className="font-serif italic text-base mb-12"
-          style={{ color: "rgba(245,237,216,0.4)", lineHeight: 1.8 }}
+          className="font-serif italic"
+          style={{ color: "rgba(245,237,216,0.4)", lineHeight: 1.9, textAlign: "center", fontSize: "clamp(0.95rem, 3vw, 1.1rem)", fontStyle: "italic", marginBottom: "3rem" }}
         >
           She chose the sky and never looked back.
           <br />

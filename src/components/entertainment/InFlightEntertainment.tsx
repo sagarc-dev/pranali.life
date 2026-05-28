@@ -1,10 +1,11 @@
 "use client";
 import { useState, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import ScrambleText from "@/components/shared/ScrambleText";
 import { IFE_CATEGORIES, IFE_CONTENT } from "@/lib/constants";
 
-function IFECard({ item, index }: { item: (typeof IFE_CONTENT)[0]; index: number }) {
+function IFECard({ item, index, onClick }: { item: (typeof IFE_CONTENT)[0]; index: number; onClick: () => void }) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -14,6 +15,7 @@ function IFECard({ item, index }: { item: (typeof IFE_CONTENT)[0]; index: number
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
+      onClick={onClick}
       className="ife-screen rounded-xl overflow-hidden cursor-pointer group"
       style={{
         background: "#0a0410",
@@ -28,6 +30,7 @@ function IFECard({ item, index }: { item: (typeof IFE_CONTENT)[0]; index: number
           src={item.thumbnail}
           alt={item.title}
           fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover transition-transform duration-700"
           style={{ transform: hovered ? "scale(1.08)" : "scale(1)", opacity: 0.7 }}
         />
@@ -106,6 +109,7 @@ function IFECard({ item, index }: { item: (typeof IFE_CONTENT)[0]; index: number
 
 export default function InFlightEntertainment() {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [activeVideo, setActiveVideo] = useState<(typeof IFE_CONTENT)[0] | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
@@ -118,7 +122,7 @@ export default function InFlightEntertainment() {
     <section
       id="ife"
       ref={sectionRef}
-      className="relative min-h-screen py-28 overflow-hidden"
+      className="relative min-h-screen py-36 overflow-hidden"
       style={{ background: "linear-gradient(180deg, var(--color-dark) 0%, #080412 50%, var(--color-dark) 100%)" }}
     >
       {/* Screen bezel frame at top */}
@@ -130,26 +134,49 @@ export default function InFlightEntertainment() {
         }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-6" style={{ zIndex: 1 }}>
+      <div
+        style={{
+          position: "relative",
+          zIndex: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          maxWidth: "80rem",
+          margin: "0 auto",
+          padding: "0 1rem",
+        }}
+      >
         {/* Section Header */}
-        <div className="text-center mb-14">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100%",
+            marginBottom: "2.5rem",
+          }}
+        >
           <motion.div
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 1 }}
-            className="flex items-center justify-center gap-3 mb-6"
+            style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.75rem", marginBottom: "1.25rem", width: "100%" }}
           >
             <div
-              className="flex items-center gap-2 px-4 py-2 rounded-full"
               style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                padding: "0.5rem 1rem",
+                borderRadius: "999px",
                 background: "rgba(201,149,42,0.08)",
                 border: "1px solid rgba(201,149,42,0.2)",
               }}
             >
-              <span className="text-sm">📺</span>
+              <span style={{ fontSize: "0.875rem" }}>📺</span>
               <span
-                className="font-mono text-xs tracking-widest"
-                style={{ color: "#C9952A", fontSize: "0.65rem" }}
+                className="font-mono"
+                style={{ color: "#C9952A", fontSize: "0.6rem", letterSpacing: "0.1em" }}
               >
                 IN-FLIGHT ENTERTAINMENT SYSTEM
               </span>
@@ -161,16 +188,28 @@ export default function InFlightEntertainment() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="font-serif font-light"
-            style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", color: "#F5EDD8" }}
+            style={{
+              fontSize: "clamp(2.2rem, 9vw, 4rem)",
+              color: "#F5EDD8",
+              textAlign: "center",
+              width: "100%",
+              lineHeight: 1.15,
+            }}
           >
-            Content &amp; Stories
+            <ScrambleText text="Content & Stories" />
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 1, delay: 0.4 }}
-            className="font-serif italic mt-3"
-            style={{ color: "rgba(245,237,216,0.4)" }}
+            className="font-serif italic"
+            style={{
+              color: "rgba(245,237,216,0.4)",
+              textAlign: "center",
+              width: "100%",
+              fontSize: "clamp(0.9rem, 3vw, 1rem)",
+              marginTop: "0.5rem",
+            }}
           >
             Life above the clouds, curated for you.
           </motion.p>
@@ -205,9 +244,9 @@ export default function InFlightEntertainment() {
         </motion.div>
 
         {/* Content Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-7">
           {filtered.map((item, i) => (
-            <IFECard key={item.id} item={item} index={i} />
+            <IFECard key={item.id} item={item} index={i} onClick={() => setActiveVideo(item)} />
           ))}
         </div>
 
@@ -216,7 +255,7 @@ export default function InFlightEntertainment() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, delay: 0.6 }}
-          className="text-center mt-14"
+          className="text-center mt-20"
         >
           <p className="font-serif italic mb-5" style={{ color: "rgba(245,237,216,0.4)" }}>
             Follow the journey on Instagram
@@ -245,6 +284,72 @@ export default function InFlightEntertainment() {
           </a>
         </motion.div>
       </div>
+
+      {/* Video Modal */}
+      <AnimatePresence>
+        {activeVideo && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8"
+            style={{ background: "rgba(7,3,3,0.9)", backdropFilter: "blur(20px)" }}
+            onClick={() => setActiveVideo(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="relative w-full max-w-5xl bg-black rounded-2xl overflow-hidden shadow-2xl"
+              style={{ border: "1px solid rgba(201,149,42,0.2)" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header Bar */}
+              <div className="flex items-center justify-between p-4 bg-[#0a0410] border-b border-[rgba(201,149,42,0.15)]">
+                <div>
+                  <h3 className="font-serif text-[#F5EDD8]">{activeVideo.title}</h3>
+                  <p className="font-mono text-xs text-[#C9952A] mt-1 tracking-widest">{activeVideo.category.toUpperCase()}</p>
+                </div>
+                <button
+                  onClick={() => setActiveVideo(null)}
+                  className="w-10 h-10 rounded-full flex items-center justify-center bg-[rgba(245,237,216,0.05)] text-[rgba(245,237,216,0.5)] hover:bg-[rgba(245,237,216,0.1)] transition-colors"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Player Area */}
+              <div className="relative aspect-video bg-black w-full flex items-center justify-center">
+                {activeVideo.videoUrl ? (
+                  <video
+                    src={activeVideo.videoUrl}
+                    autoPlay
+                    controls
+                    className="w-full h-full object-cover"
+                    playsInline
+                  />
+                ) : (
+                  <div className="relative w-full h-full flex flex-col items-center justify-center">
+                    <Image
+                      src={activeVideo.thumbnail}
+                      alt={activeVideo.title}
+                      fill
+                      className="object-cover opacity-30"
+                    />
+                    <div className="relative z-10 text-center">
+                      <div className="w-16 h-16 rounded-full border border-[rgba(201,149,42,0.3)] flex items-center justify-center mx-auto mb-4 bg-[rgba(10,4,16,0.5)]">
+                        <span className="animate-spin text-2xl">✈</span>
+                      </div>
+                      <p className="font-mono text-xs tracking-widest text-[#C9952A]">CONNECTING TO SATELLITE...</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
