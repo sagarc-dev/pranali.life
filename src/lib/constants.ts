@@ -16,52 +16,16 @@ export const SITE = {
 // ─── Journey Timeline Stops ───────────────────────────────────────
 export const JOURNEY_STOPS = [
   {
-    id: "nursing",
-    year: "2017",
-    title: "The Healer's Path",
-    subtitle: "B.Sc Nursing · Maharashtra",
+    id: "creator",
+    year: "Now",
+    title: "Above The Clouds",
+    subtitle: "Travel Creator · @__pranaliii___",
     description:
-      "She chose nursing — a noble path built on compassion. Years of discipline, anatomy, and holding hands in moments of pain. She was good at it. But goodness isn't always the same as rightness.",
-    icon: "🏥",
-    color: "#6B8CAE",
-    image: "/pranali/self_potraits.jpg",
-    position: { x: 52, y: 58 },
-  },
-  {
-    id: "government",
-    year: "2019",
-    title: "The Safe Shore",
-    subtitle: "Government Medical Job · Maharashtra",
-    description:
-      "A government post — steady, respected, secure. The kind of job every family dreams about for their daughter. But inside, something stirred. A restlessness she couldn't name. Not yet.",
-    icon: "🏛️",
-    color: "#8B7355",
-    image: "/pranali/iskon.jpg",
-    position: { x: 54, y: 56 },
-  },
-  {
-    id: "decision",
-    year: "2020",
-    title: "The Pivot",
-    subtitle: "The Boldest Decision of Her Life",
-    description:
-      "Blood. Wards. Patient pain. Day after day. She respected medicine — but it didn't call to her soul. So she made the bravest decision of her life: she walked away from certainty and into the unknown. From syringes to skies.",
-    icon: "⚡",
-    color: "#C9952A",
+      "London in the rain. Dubai wings. Mauritius turquoise. Singapore skyline. She started sharing what most never see — the life between the announcements. Her lens catches the poetry of aviation.",
+    icon: "🌍",
+    color: "#2D8B60",
     image: "/pranali/at_sea.jpg",
-    position: { x: 54, y: 54 },
-  },
-  {
-    id: "gofirst",
-    year: "2022",
-    title: "First Wings",
-    subtitle: "Go First Airlines · Cabin Crew · 2 Years",
-    description:
-      "The appointment letter. The lanyard. The first boarding call. For the first time, she felt completely, wholly herself. Go First gave her the runway she needed — discipline, confidence, and the love of the skies.",
-    icon: "🛋️",
-    color: "#003DA5",
-    image: "/pranali/go_first_letter_with_icard.jpg",
-    position: { x: 60, y: 48 },
+    position: { x: 76, y: 40 },
   },
   {
     id: "airindia",
@@ -76,18 +40,55 @@ export const JOURNEY_STOPS = [
     position: { x: 68, y: 44 },
   },
   {
-    id: "creator",
-    year: "Now",
-    title: "Above The Clouds",
-    subtitle: "Travel Creator · @__pranaliii___",
+    id: "gofirst",
+    year: "2022",
+    title: "First Wings",
+    subtitle: "Go First Airlines · Cabin Crew · 2 Years",
     description:
-      "London in the rain. Dubai wings. Mauritius turquoise. Singapore skyline. She started sharing what most never see — the life between the announcements. Her lens catches the poetry of aviation.",
-    icon: "🌍",
-    color: "#2D8B60",
+      "The appointment letter. The lanyard. The first boarding call. For the first time, she felt completely, wholly herself. Go First gave her the runway she needed — discipline, confidence, and the love of the skies.",
+    icon: "🛋️",
+    color: "#003DA5",
+    image: "/pranali/go_first_letter_with_icard.jpg",
+    position: { x: 60, y: 48 },
+  },
+  {
+    id: "decision",
+    year: "2020",
+    title: "The Pivot",
+    subtitle: "The Boldest Decision of Her Life",
+    description:
+      "Blood. Wards. Patient pain. Day after day. She respected medicine — but it didn't call to her soul. So she made the bravest decision of her life: she walked away from certainty and into the unknown. From syringes to skies.",
+    icon: "⚡",
+    color: "#C9952A",
     image: "/pranali/at_sea.jpg",
-    position: { x: 76, y: 40 },
+    position: { x: 54, y: 54 },
+  },
+  {
+    id: "government",
+    year: "2019",
+    title: "The Safe Shore",
+    subtitle: "Government Medical Job · Maharashtra",
+    description:
+      "A government post — steady, respected, secure. The kind of job every family dreams about for their daughter. But inside, something stirred. A restlessness she couldn't name. Not yet.",
+    icon: "🏛️",
+    color: "#8B7355",
+    image: "/pranali/iskon.jpg",
+    position: { x: 54, y: 56 },
+  },
+  {
+    id: "nursing",
+    year: "2017",
+    title: "The Healer's Path",
+    subtitle: "B.Sc Nursing · Maharashtra",
+    description:
+      "She chose nursing — a noble path built on compassion. Years of discipline, anatomy, and holding hands in moments of pain. She was good at it. But goodness isn't always the same as rightness.",
+    icon: "🏥",
+    color: "#6B8CAE",
+    image: "/pranali/self_potraits.jpg",
+    position: { x: 52, y: 58 },
   },
 ];
+
 
 // ─── Passport Stamps ─────────────────────────────────────────────
 export const PASSPORT_STAMPS = [
