@@ -10,58 +10,72 @@ function PACard({ item, index }: { item: (typeof ANNOUNCEMENTS)[0]; index: numbe
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50, y: 20 }}
-      animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
-      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-      className="glass-dark rounded-xl p-6 relative overflow-hidden group"
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
+      className="glass-dark rounded-xl relative overflow-hidden"
       style={{
         border: "1px solid rgba(201,149,42,0.12)",
-        maxWidth: "640px",
-        marginLeft: index % 2 === 0 ? "0" : "auto",
-        marginRight: index % 2 === 0 ? "auto" : "0",
+        padding: "1.5rem",
+        width: "100%",
+        maxWidth: "600px",
       }}
     >
-      {/* Gold accent line */}
+      {/* Gold accent left line */}
       <div
-        className="absolute left-0 top-0 bottom-0 w-0.5 group-hover:opacity-100 opacity-40 transition-opacity duration-500"
-        style={{ background: "linear-gradient(to bottom, transparent, #C9952A, transparent)" }}
+        style={{
+          position: "absolute",
+          left: 0,
+          top: 0,
+          bottom: 0,
+          width: "2px",
+          background: "linear-gradient(to bottom, transparent, #C9952A, transparent)",
+          opacity: 0.5,
+        }}
       />
 
-      {/* PA Speaker Icon */}
-      <div className="flex items-start gap-4">
+      <div style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
+        {/* Icon */}
         <div
-          className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center"
           style={{
-            background: "rgba(196,18,48,0.15)",
-            border: "1px solid rgba(196,18,48,0.3)",
+            flexShrink: 0,
+            width: "2.5rem",
+            height: "2.5rem",
+            borderRadius: "50%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(196,18,48,0.12)",
+            border: "1px solid rgba(196,18,48,0.25)",
           }}
         >
-          <motion.div
+          <motion.span
             animate={{ scale: [1, 1.15, 1] }}
             transition={{ duration: 2, repeat: Infinity, delay: index * 0.5 }}
             style={{ fontSize: "1rem" }}
           >
             📢
-          </motion.div>
+          </motion.span>
         </div>
 
-        <div className="flex-1">
-          {/* Time indicator */}
-          <div className="flex items-center gap-3 mb-3">
+        <div style={{ flex: 1 }}>
+          {/* Time badge + waveform */}
+          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.75rem" }}>
             <span
-              className="font-mono text-xs px-2 py-0.5 rounded"
+              className="font-mono"
               style={{
                 background: "rgba(201,149,42,0.1)",
                 color: "#C9952A",
                 border: "1px solid rgba(201,149,42,0.2)",
+                fontSize: "0.6rem",
                 letterSpacing: "0.1em",
+                padding: "2px 8px",
+                borderRadius: "4px",
               }}
             >
               PA {item.time}
             </span>
-
-            {/* Waveform animation */}
-            <div className="flex items-end gap-0.5 h-4">
+            <div style={{ display: "flex", alignItems: "flex-end", gap: "2px", height: "1rem" }}>
               {Array.from({ length: 8 }, (_, j) => (
                 <motion.div
                   key={j}
@@ -72,10 +86,10 @@ function PACard({ item, index }: { item: (typeof ANNOUNCEMENTS)[0]; index: numbe
                     repeatType: "mirror",
                     delay: j * 0.05,
                   }}
-                  className="rounded-full"
                   style={{
                     width: "2px",
-                    background: "rgba(201,149,42,0.5)",
+                    background: "rgba(201,149,42,0.45)",
+                    borderRadius: "999px",
                     minHeight: "2px",
                   }}
                 />
@@ -83,18 +97,15 @@ function PACard({ item, index }: { item: (typeof ANNOUNCEMENTS)[0]; index: numbe
             </div>
           </div>
 
-          {/* Main announcement */}
           <p
-            className="font-serif text-xl font-light mb-2"
-            style={{ color: "#F5EDD8", lineHeight: 1.4 }}
+            className="font-serif font-light"
+            style={{ color: "#F5EDD8", lineHeight: 1.5, fontSize: "clamp(1rem, 4vw, 1.2rem)", marginBottom: "0.4rem" }}
           >
-            "{item.message}"
+            &ldquo;{item.message}&rdquo;
           </p>
-
-          {/* Subtext */}
           <p
-            className="font-mono text-xs tracking-wider"
-            style={{ color: "rgba(245,237,216,0.4)", letterSpacing: "0.05em" }}
+            className="font-mono"
+            style={{ color: "rgba(245,237,216,0.4)", fontSize: "0.65rem", letterSpacing: "0.05em" }}
           >
             — {item.subtext}
           </p>
@@ -112,38 +123,60 @@ export default function CabinAnnouncements() {
     <section
       id="announcements"
       ref={sectionRef}
-      className="relative min-h-screen py-28 px-6 overflow-hidden"
       style={{
+        position: "relative",
+        overflow: "hidden",
+        padding: "8rem 1rem",
         background: "linear-gradient(180deg, var(--color-dark) 0%, #08030d 50%, var(--color-dark) 100%)",
       }}
     >
-      {/* Background ambience */}
-      <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
+      {/* Background glow */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          zIndex: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
           style={{
-            width: "600px",
-            height: "600px",
-            background: "radial-gradient(ellipse, rgba(196,18,48,0.05) 0%, transparent 70%)",
+            width: "40rem",
+            height: "40rem",
+            background: "radial-gradient(ellipse, rgba(196,18,48,0.04) 0%, transparent 70%)",
             borderRadius: "50%",
           }}
         />
       </div>
 
-      <div className="relative max-w-4xl mx-auto" style={{ zIndex: 1 }}>
-        {/* Section Header */}
-        <div className="text-center mb-20">
+      <div style={{ position: "relative", zIndex: 1, maxWidth: "40rem", margin: "0 auto" }}>
+        {/* Header */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center",
+            marginBottom: "4rem",
+          }}
+        >
           <motion.div
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 1 }}
-            className="flex items-center justify-center gap-4 mb-6"
+            style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.25rem" }}
           >
-            <div className="h-px w-12" style={{ background: "rgba(201,149,42,0.4)" }} />
-            <span className="font-mono text-xs tracking-[0.4em]" style={{ color: "rgba(201,149,42,0.7)" }}>
+            <div style={{ height: "1px", width: "3rem", background: "rgba(201,149,42,0.4)" }} />
+            <span
+              className="font-mono"
+              style={{ color: "rgba(201,149,42,0.7)", fontSize: "0.6rem", letterSpacing: "0.4em" }}
+            >
               CABIN ANNOUNCEMENTS
             </span>
-            <div className="h-px w-12" style={{ background: "rgba(201,149,42,0.4)" }} />
+            <div style={{ height: "1px", width: "3rem", background: "rgba(201,149,42,0.4)" }} />
           </motion.div>
 
           <motion.h2
@@ -151,23 +184,40 @@ export default function CabinAnnouncements() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="font-serif font-light"
-            style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", color: "#F5EDD8" }}
+            style={{
+              fontSize: "clamp(2rem, 9vw, 3.5rem)",
+              color: "#F5EDD8",
+              textAlign: "center",
+            }}
           >
             Ladies &amp; Gentlemen,
           </motion.h2>
+
           <motion.p
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 1, delay: 0.4 }}
-            className="font-serif italic text-lg mt-3"
-            style={{ color: "rgba(245,237,216,0.4)" }}
+            className="font-serif italic"
+            style={{
+              color: "rgba(245,237,216,0.4)",
+              textAlign: "center",
+              fontSize: "clamp(0.95rem, 3.5vw, 1.1rem)",
+              marginTop: "0.75rem",
+            }}
           >
             Welcome aboard this extraordinary story.
           </motion.p>
         </div>
 
-        {/* PA Cards */}
-        <div className="flex flex-col gap-6">
+        {/* Cards */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1.25rem",
+            alignItems: "center",
+          }}
+        >
           {ANNOUNCEMENTS.map((item, i) => (
             <PACard key={i} item={item} index={i} />
           ))}
@@ -178,14 +228,14 @@ export default function CabinAnnouncements() {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 1, delay: 1 }}
-          className="text-center mt-16"
+          style={{ textAlign: "center", marginTop: "4rem" }}
         >
-          <div className="divider-gold mx-auto w-48 mb-8" />
+          <div className="divider-gold" style={{ width: "8rem", margin: "0 auto 2rem" }} />
           <p
-            className="font-serif italic text-xl"
-            style={{ color: "rgba(245,237,216,0.35)" }}
+            className="font-serif italic"
+            style={{ color: "rgba(245,237,216,0.35)", fontSize: "clamp(1rem, 4vw, 1.2rem)" }}
           >
-            "Cabin crew, prepare for takeoff."
+            &ldquo;Cabin crew, prepare for takeoff.&rdquo;
           </p>
         </motion.div>
       </div>

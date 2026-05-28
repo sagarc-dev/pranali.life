@@ -24,7 +24,7 @@ export const JOURNEY_STOPS = [
       "She chose nursing — a noble path built on compassion. Years of discipline, anatomy, and holding hands in moments of pain. She was good at it. But goodness isn't always the same as rightness.",
     icon: "🏥",
     color: "#6B8CAE",
-    image: "/images/nursing.png",
+    image: "/pranali/self_potraits.jpg",
     position: { x: 52, y: 58 },
   },
   {
@@ -36,7 +36,7 @@ export const JOURNEY_STOPS = [
       "A government post — steady, respected, secure. The kind of job every family dreams about for their daughter. But inside, something stirred. A restlessness she couldn't name. Not yet.",
     icon: "🏛️",
     color: "#8B7355",
-    image: "/images/nursing.png",
+    image: "/pranali/iskon.jpg",
     position: { x: 54, y: 56 },
   },
   {
@@ -48,7 +48,7 @@ export const JOURNEY_STOPS = [
       "Blood. Wards. Patient pain. Day after day. She respected medicine — but it didn't call to her soul. So she made the bravest decision of her life: she walked away from certainty and into the unknown. From syringes to skies.",
     icon: "⚡",
     color: "#C9952A",
-    image: "/images/airport-terminal.png",
+    image: "/pranali/at_sea.jpg",
     position: { x: 54, y: 54 },
   },
   {

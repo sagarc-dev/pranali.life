@@ -64,9 +64,10 @@ export default function FinalDestination() {
         aria-hidden="true"
       >
         <Image
-          src="/images/sunset-clouds.png"
+          src="/pranali/at_sea.jpg"
           alt="Sunset above clouds"
           fill
+          sizes="100vw"
           className="object-cover"
           style={{ opacity: 0.25 }}
         />
@@ -103,9 +104,10 @@ export default function FinalDestination() {
           }}
         >
           <Image
-            src="/images/sunset-clouds.png"
+            src="/pranali/at_sea.jpg"
             alt="Sunset view from aircraft window"
             fill
+            sizes="224px"
             className="object-cover"
           />
           <div
@@ -140,19 +142,19 @@ export default function FinalDestination() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="font-serif font-light mb-4"
-          style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "#F5EDD8", lineHeight: 1.2 }}
+          style={{ fontSize: "clamp(1.8rem, 7vw, 3.5rem)", color: "#F5EDD8", lineHeight: 1.25, textAlign: "center" }}
         >
-          "Some journeys begin
+          &ldquo;Some journeys begin
           <br />
-          <span style={{ color: "#C9952A" }}>after turbulence."</span>
+          <span style={{ color: "#C9952A" }}>after turbulence.&rdquo;</span>
         </motion.h2>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 1, delay: 0.6 }}
-          className="font-serif italic text-base mb-12"
-          style={{ color: "rgba(245,237,216,0.4)", lineHeight: 1.8 }}
+          className="font-serif italic"
+          style={{ color: "rgba(245,237,216,0.4)", lineHeight: 1.9, textAlign: "center", fontSize: "clamp(0.95rem, 3vw, 1.1rem)", fontStyle: "italic", marginBottom: "3rem" }}
         >
           She chose the sky and never looked back.
           <br />

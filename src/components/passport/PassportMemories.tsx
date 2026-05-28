@@ -88,7 +88,7 @@ export default function PassportMemories() {
     <section
       id="passport"
       ref={sectionRef}
-      className="relative min-h-screen py-28 overflow-hidden"
+      className="relative min-h-screen py-36 overflow-hidden"
       style={{
         background: "linear-gradient(180deg, var(--color-dark) 0%, #080510 50%, var(--color-dark) 100%)",
       }}
@@ -99,6 +99,7 @@ export default function PassportMemories() {
           src="/images/passport.png"
           alt="Passport texture"
           fill
+          sizes="100vw"
           className="object-cover"
           style={{ opacity: 0.05, filter: "blur(2px)" }}
         />
@@ -118,15 +119,41 @@ export default function PassportMemories() {
         }}
       />
 
-      <div className="relative max-w-6xl mx-auto px-6" style={{ zIndex: 2 }}>
+      <div
+        style={{
+          position: "relative",
+          zIndex: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          maxWidth: "72rem",
+          margin: "0 auto",
+          padding: "0 1rem",
+        }}
+      >
         {/* Header */}
-        <div className="text-center mb-16">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100%",
+            marginBottom: "3rem",
+          }}
+        >
           <motion.p
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 1 }}
-            className="font-mono text-xs tracking-[0.4em] mb-4"
-            style={{ color: "rgba(201,149,42,0.7)" }}
+            className="font-mono"
+            style={{
+              color: "rgba(201,149,42,0.7)",
+              textAlign: "center",
+              width: "100%",
+              letterSpacing: "0.4em",
+              fontSize: "0.65rem",
+              marginBottom: "1rem",
+            }}
           >
             ✦ PASSPORT MEMORIES ✦
           </motion.p>
@@ -135,16 +162,29 @@ export default function PassportMemories() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="font-serif font-light"
-            style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)", color: "#F5EDD8" }}
+            style={{
+              fontSize: "clamp(2.2rem, 9vw, 4.5rem)",
+              color: "#F5EDD8",
+              textAlign: "center",
+              width: "100%",
+              lineHeight: 1.15,
+            }}
           >
-            Cities & Stories
+            Cities &amp; Stories
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 1, delay: 0.4 }}
-            className="font-mono text-xs tracking-widest mt-3"
-            style={{ color: "rgba(201,149,42,0.5)" }}
+            className="font-mono"
+            style={{
+              color: "rgba(201,149,42,0.5)",
+              textAlign: "center",
+              width: "100%",
+              letterSpacing: "0.1em",
+              fontSize: "0.65rem",
+              marginTop: "0.75rem",
+            }}
           >
             CLICK A STAMP TO OPEN A MEMORY
           </motion.p>
@@ -304,6 +344,7 @@ export default function PassportMemories() {
                       src={activeStamp.photo}
                       alt={activeStamp.city}
                       fill
+                      sizes="(max-width: 768px) 100vw, 512px"
                       className="object-cover"
                       style={{ opacity: 0.85 }}
                     />

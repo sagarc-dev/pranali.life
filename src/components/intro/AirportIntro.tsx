@@ -160,8 +160,8 @@ function BoardingPass({ onBoard }: { onBoard: () => void }) {
                 PASSENGER
               </p>
               <h2
-                className="font-serif text-3xl font-light tracking-wide"
-                style={{ color: "#F5EDD8" }}
+                className="font-serif"
+                style={{ color: "#F5EDD8", fontSize: "clamp(1.4rem, 5vw, 1.75rem)", fontWeight: 500, letterSpacing: "0.02em" }}
               >
                 {SITE.name.toUpperCase()}
               </h2>
@@ -264,9 +264,10 @@ export default function AirportIntro() {
       {/* Background Image */}
       <div className="absolute inset-0" style={{ zIndex: 0 }}>
         <Image
-          src="/images/airport-terminal.png"
+          src="/pranali/at_sea.jpg"
           alt="Luxury airport terminal"
           fill
+          sizes="100vw"
           className="object-cover"
           style={{ opacity: 0.12 }}
           priority
@@ -310,11 +311,12 @@ export default function AirportIntro() {
           transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="font-serif mb-2"
           style={{
-            fontSize: "clamp(3rem, 8vw, 5.5rem)",
-            lineHeight: 1,
+            fontSize: "clamp(2.8rem, 9vw, 5.5rem)",
+            lineHeight: 1.05,
             color: "#F5EDD8",
-            fontWeight: 300,
-            letterSpacing: "0.08em",
+            fontWeight: 400,
+            letterSpacing: "0.04em",
+            textAlign: "center",
           }}
         >
           {SITE.name}
@@ -334,10 +336,10 @@ export default function AirportIntro() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="font-serif text-lg font-light italic mb-10"
-          style={{ color: "rgba(245,237,216,0.5)" }}
+          className="font-serif italic mb-10"
+          style={{ color: "rgba(245,237,216,0.5)", fontSize: "clamp(1rem, 3.5vw, 1.15rem)", fontStyle: "italic", textAlign: "center" }}
         >
-          "A journey of transformation through the skies."
+          &ldquo;A journey of transformation through the skies.&rdquo;
         </motion.p>
 
         {/* Gold Divider */}

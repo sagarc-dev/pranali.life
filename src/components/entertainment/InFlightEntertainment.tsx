@@ -28,6 +28,7 @@ function IFECard({ item, index }: { item: (typeof IFE_CONTENT)[0]; index: number
           src={item.thumbnail}
           alt={item.title}
           fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover transition-transform duration-700"
           style={{ transform: hovered ? "scale(1.08)" : "scale(1)", opacity: 0.7 }}
         />
@@ -118,7 +119,7 @@ export default function InFlightEntertainment() {
     <section
       id="ife"
       ref={sectionRef}
-      className="relative min-h-screen py-28 overflow-hidden"
+      className="relative min-h-screen py-36 overflow-hidden"
       style={{ background: "linear-gradient(180deg, var(--color-dark) 0%, #080412 50%, var(--color-dark) 100%)" }}
     >
       {/* Screen bezel frame at top */}
@@ -130,26 +131,49 @@ export default function InFlightEntertainment() {
         }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-6" style={{ zIndex: 1 }}>
+      <div
+        style={{
+          position: "relative",
+          zIndex: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          maxWidth: "80rem",
+          margin: "0 auto",
+          padding: "0 1rem",
+        }}
+      >
         {/* Section Header */}
-        <div className="text-center mb-14">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100%",
+            marginBottom: "2.5rem",
+          }}
+        >
           <motion.div
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 1 }}
-            className="flex items-center justify-center gap-3 mb-6"
+            style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.75rem", marginBottom: "1.25rem", width: "100%" }}
           >
             <div
-              className="flex items-center gap-2 px-4 py-2 rounded-full"
               style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                padding: "0.5rem 1rem",
+                borderRadius: "999px",
                 background: "rgba(201,149,42,0.08)",
                 border: "1px solid rgba(201,149,42,0.2)",
               }}
             >
-              <span className="text-sm">📺</span>
+              <span style={{ fontSize: "0.875rem" }}>📺</span>
               <span
-                className="font-mono text-xs tracking-widest"
-                style={{ color: "#C9952A", fontSize: "0.65rem" }}
+                className="font-mono"
+                style={{ color: "#C9952A", fontSize: "0.6rem", letterSpacing: "0.1em" }}
               >
                 IN-FLIGHT ENTERTAINMENT SYSTEM
               </span>
@@ -161,7 +185,13 @@ export default function InFlightEntertainment() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="font-serif font-light"
-            style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", color: "#F5EDD8" }}
+            style={{
+              fontSize: "clamp(2.2rem, 9vw, 4rem)",
+              color: "#F5EDD8",
+              textAlign: "center",
+              width: "100%",
+              lineHeight: 1.15,
+            }}
           >
             Content &amp; Stories
           </motion.h2>
@@ -169,8 +199,14 @@ export default function InFlightEntertainment() {
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 1, delay: 0.4 }}
-            className="font-serif italic mt-3"
-            style={{ color: "rgba(245,237,216,0.4)" }}
+            className="font-serif italic"
+            style={{
+              color: "rgba(245,237,216,0.4)",
+              textAlign: "center",
+              width: "100%",
+              fontSize: "clamp(0.9rem, 3vw, 1rem)",
+              marginTop: "0.5rem",
+            }}
           >
             Life above the clouds, curated for you.
           </motion.p>
@@ -205,7 +241,7 @@ export default function InFlightEntertainment() {
         </motion.div>
 
         {/* Content Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-7">
           {filtered.map((item, i) => (
             <IFECard key={item.id} item={item} index={i} />
           ))}
@@ -216,7 +252,7 @@ export default function InFlightEntertainment() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, delay: 0.6 }}
-          className="text-center mt-14"
+          className="text-center mt-20"
         >
           <p className="font-serif italic mb-5" style={{ color: "rgba(245,237,216,0.4)" }}>
             Follow the journey on Instagram
