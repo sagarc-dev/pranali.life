@@ -316,6 +316,7 @@ export const IFE_CONTENT = [
     duration: "12:34",
     thumbnail: "/pranali/dubai.jpg",
     views: "48K",
+    videoUrl: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
   },
   {
     id: 2,
@@ -340,6 +341,7 @@ export const IFE_CONTENT = [
     duration: "18:05",
     thumbnail: "/pranali/in_blue_air_india_uniform.jpg",
     views: "124K",
+    videoUrl: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
   },
   {
     id: 5,
@@ -372,6 +374,7 @@ export const IFE_CONTENT = [
     duration: "14:33",
     thumbnail: "/pranali/disney_land.jpg",
     views: "71K",
+    videoUrl: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
   },
   {
     id: 9,

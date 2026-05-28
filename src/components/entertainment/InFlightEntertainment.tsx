@@ -1,11 +1,11 @@
 "use client";
 import { useState, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import ScrambleText from "@/components/shared/ScrambleText";
 import { IFE_CATEGORIES, IFE_CONTENT } from "@/lib/constants";
 
-function IFECard({ item, index }: { item: (typeof IFE_CONTENT)[0]; index: number }) {
+function IFECard({ item, index, onClick }: { item: (typeof IFE_CONTENT)[0]; index: number; onClick: () => void }) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -15,6 +15,7 @@ function IFECard({ item, index }: { item: (typeof IFE_CONTENT)[0]; index: number
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
+      onClick={onClick}
       className="ife-screen rounded-xl overflow-hidden cursor-pointer group"
       style={{
         background: "#0a0410",
@@ -108,6 +109,7 @@ function IFECard({ item, index }: { item: (typeof IFE_CONTENT)[0]; index: number
 
 export default function InFlightEntertainment() {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [activeVideo, setActiveVideo] = useState<(typeof IFE_CONTENT)[0] | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
@@ -244,7 +246,7 @@ export default function InFlightEntertainment() {
         {/* Content Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-7">
           {filtered.map((item, i) => (
-            <IFECard key={item.id} item={item} index={i} />
+            <IFECard key={item.id} item={item} index={i} onClick={() => setActiveVideo(item)} />
           ))}
         </div>
 
@@ -282,6 +284,72 @@ export default function InFlightEntertainment() {
           </a>
         </motion.div>
       </div>
+
+      {/* Video Modal */}
+      <AnimatePresence>
+        {activeVideo && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8"
+            style={{ background: "rgba(7,3,3,0.9)", backdropFilter: "blur(20px)" }}
+            onClick={() => setActiveVideo(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="relative w-full max-w-5xl bg-black rounded-2xl overflow-hidden shadow-2xl"
+              style={{ border: "1px solid rgba(201,149,42,0.2)" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header Bar */}
+              <div className="flex items-center justify-between p-4 bg-[#0a0410] border-b border-[rgba(201,149,42,0.15)]">
+                <div>
+                  <h3 className="font-serif text-[#F5EDD8]">{activeVideo.title}</h3>
+                  <p className="font-mono text-xs text-[#C9952A] mt-1 tracking-widest">{activeVideo.category.toUpperCase()}</p>
+                </div>
+                <button
+                  onClick={() => setActiveVideo(null)}
+                  className="w-10 h-10 rounded-full flex items-center justify-center bg-[rgba(245,237,216,0.05)] text-[rgba(245,237,216,0.5)] hover:bg-[rgba(245,237,216,0.1)] transition-colors"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Player Area */}
+              <div className="relative aspect-video bg-black w-full flex items-center justify-center">
+                {activeVideo.videoUrl ? (
+                  <video
+                    src={activeVideo.videoUrl}
+                    autoPlay
+                    controls
+                    className="w-full h-full object-cover"
+                    playsInline
+                  />
+                ) : (
+                  <div className="relative w-full h-full flex flex-col items-center justify-center">
+                    <Image
+                      src={activeVideo.thumbnail}
+                      alt={activeVideo.title}
+                      fill
+                      className="object-cover opacity-30"
+                    />
+                    <div className="relative z-10 text-center">
+                      <div className="w-16 h-16 rounded-full border border-[rgba(201,149,42,0.3)] flex items-center justify-center mx-auto mb-4 bg-[rgba(10,4,16,0.5)]">
+                        <span className="animate-spin text-2xl">✈</span>
+                      </div>
+                      <p className="font-mono text-xs tracking-widest text-[#C9952A]">CONNECTING TO SATELLITE...</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
