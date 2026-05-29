@@ -183,7 +183,7 @@ export default function LifeAboveClouds() {
         >
           <Image
             src="/pranali/at_plane_door.jpg"
-            alt="Pranali at aircraft door"
+            alt="Pranali Chahande standing at the aircraft door in official Air India cabin crew uniform"
             fill
             sizes="(max-width: 1280px) 100vw, 1280px"
             className="object-cover"
@@ -243,7 +243,7 @@ export default function LifeAboveClouds() {
           >
             <Image
               src="/pranali/in_blue_air_india_uniform.jpg"
-              alt="Pranali in uniform"
+              alt="Pranali Chahande looking elegant in the Air India VISTA uniform"
               fill
               sizes="50vw"
               className="object-cover object-top"
