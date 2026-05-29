@@ -9,10 +9,10 @@ import MagneticButton from "@/components/shared/MagneticButton";
 import { SITE } from "@/lib/constants";
 function DepartureBoard() {
   const rows = [
-    { flight: "AI-271", destination: "DREAMS", time: "NOW", status: "BOARDING", statusColor: "#C9952A" },
+    { flight: "AI-271", destination: "DREAMS", time: "NOW", status: "BOARDING", statusColor: "#B7925F" },
     { flight: "AI-110", destination: "LONDON", time: "23:15", status: "ON TIME", statusColor: "#4CAF50" },
     { flight: "AI-302", destination: "DUBAI",  time: "00:30", status: "ON TIME", statusColor: "#4CAF50" },
-    { flight: "AI-888", destination: "TOKYO",  time: "01:45", status: "DELAYED", statusColor: "#C41230" },
+    { flight: "AI-888", destination: "TOKYO",  time: "01:45", status: "DELAYED", statusColor: "#DC0C2C" },
   ];
 
   return (
@@ -36,7 +36,7 @@ function DepartureBoard() {
           borderBottom: "1px solid rgba(201,149,42,0.2)",
         }}
       >
-        <span className="font-mono text-xs tracking-widest" style={{ color: "#C9952A" }}>
+        <span className="font-mono text-xs tracking-widest" style={{ color: "#B7925F" }}>
           ✈ {SITE.airline.toUpperCase()} · DEPARTURES
         </span>
         <span className="font-mono text-xs" style={{ color: "rgba(245,237,216,0.4)" }}>
@@ -60,7 +60,7 @@ function DepartureBoard() {
           <span className="font-mono text-xs w-16" style={{ color: "rgba(245,237,216,0.5)" }}>
             {row.flight}
           </span>
-          <span className="font-mono text-sm flex-1 tracking-wide" style={{ color: "#F5EDD8" }}>
+          <span className="font-mono text-sm flex-1 tracking-wide" style={{ color: "#F0CF98" }}>
             {i === 0
               ? row.destination.split("").map((c, j) => (
                   <FlipChar key={j} char={c} delay={j * 80} />
@@ -99,7 +99,7 @@ function BoardingPass({ onBoard }: { onBoard: () => void }) {
         {/* Top Red Bar */}
         <div
           className="px-6 py-3 flex items-center justify-between"
-          style={{ background: "linear-gradient(90deg, #C41230 0%, #8B0D22 100%)" }}
+          style={{ background: "linear-gradient(90deg, #DC0C2C 0%, #8B0D22 100%)" }}
         >
           <span className="font-mono text-xs tracking-widest" style={{ color: "rgba(245,237,216,0.9)" }}>
             {SITE.airline.toUpperCase()}
@@ -121,7 +121,7 @@ function BoardingPass({ onBoard }: { onBoard: () => void }) {
               </p>
               <h2
                 className="font-serif"
-                style={{ color: "#F5EDD8", fontSize: "clamp(1.4rem, 5vw, 1.75rem)", fontWeight: 500, letterSpacing: "0.02em" }}
+                style={{ color: "#F0CF98", fontSize: "clamp(1.4rem, 5vw, 1.75rem)", fontWeight: 500, letterSpacing: "0.02em" }}
               >
                 {SITE.name.toUpperCase()}
               </h2>
@@ -133,7 +133,7 @@ function BoardingPass({ onBoard }: { onBoard: () => void }) {
               <p className="font-mono text-xs tracking-widest mb-1" style={{ color: "rgba(201,149,42,0.6)" }}>
                 FLIGHT
               </p>
-              <p className="font-mono text-2xl font-bold" style={{ color: "#C9952A" }}>
+              <p className="font-mono text-2xl font-bold" style={{ color: "#B7925F" }}>
                 {SITE.flightNo}
               </p>
             </div>
@@ -142,16 +142,16 @@ function BoardingPass({ onBoard }: { onBoard: () => void }) {
           {/* Route */}
           <div className="flex items-center justify-between mb-5">
             <div className="text-center">
-              <p className="font-mono text-3xl font-bold" style={{ color: "#F5EDD8" }}>BOM</p>
+              <p className="font-mono text-3xl font-bold" style={{ color: "#F0CF98" }}>BOM</p>
               <p className="font-mono text-xs tracking-widest mt-1" style={{ color: "rgba(245,237,216,0.4)" }}>ORIGIN</p>
             </div>
             <div className="flex-1 flex items-center justify-center px-4">
               <div className="h-px flex-1" style={{ background: "rgba(201,149,42,0.3)" }} />
-              <span className="mx-3 text-gold" style={{ color: "#C9952A" }}>✈</span>
+              <span className="mx-3 text-gold" style={{ color: "#B7925F" }}>✈</span>
               <div className="h-px flex-1" style={{ background: "rgba(201,149,42,0.3)" }} />
             </div>
             <div className="text-center">
-              <p className="font-mono text-3xl font-bold" style={{ color: "#F5EDD8" }}>∞</p>
+              <p className="font-mono text-3xl font-bold" style={{ color: "#F0CF98" }}>∞</p>
               <p className="font-mono text-xs tracking-widest mt-1" style={{ color: "rgba(245,237,216,0.4)" }}>DESTINATION</p>
             </div>
           </div>
@@ -173,7 +173,7 @@ function BoardingPass({ onBoard }: { onBoard: () => void }) {
                 <p className="font-mono text-xs tracking-widest mb-1" style={{ color: "rgba(201,149,42,0.6)", fontSize: "0.6rem" }}>
                   {stat.label}
                 </p>
-                <p className="font-mono text-sm font-bold" style={{ color: "#F5EDD8" }}>
+                <p className="font-mono text-sm font-bold" style={{ color: "#F0CF98" }}>
                   {stat.value}
                 </p>
               </div>
@@ -187,11 +187,11 @@ function BoardingPass({ onBoard }: { onBoard: () => void }) {
             className="w-full py-3.5 rounded font-mono text-sm tracking-widest transition-all duration-300 group"
             style={{
               border: "1px solid rgba(201,149,42,0.3)",
-              background: "linear-gradient(135deg, #C41230, #8B0D22)",
+              background: "linear-gradient(135deg, #DC0C2C, #8B0D22)",
               letterSpacing: "0.2em",
             }}
           >
-            <span className="text-[#F5EDD8] group-hover:text-[#0A0505] transition-colors duration-300">
+            <span className="text-[#F0CF98] group-hover:text-[#0A0505] transition-colors duration-300">
               <span className="group-hover:hidden">BEGIN JOURNEY</span>
               <span className="hidden group-hover:inline">✈ BOARD NOW</span>
             </span>
@@ -270,7 +270,7 @@ export default function AirportIntro() {
           style={{
             fontSize: "clamp(2.8rem, 9vw, 5.5rem)",
             lineHeight: 1.05,
-            color: "#F5EDD8",
+            color: "#F0CF98",
             fontWeight: 400,
             letterSpacing: "0.04em",
             textAlign: "center",
@@ -305,7 +305,7 @@ export default function AirportIntro() {
           animate={{ scaleX: 1 }}
           transition={{ duration: 1, delay: 0.9 }}
           className="w-32 h-px mb-10"
-          style={{ background: "linear-gradient(90deg, transparent, #C9952A, transparent)" }}
+          style={{ background: "linear-gradient(90deg, transparent, #B7925F, transparent)" }}
         />
 
         {/* Departure Board */}

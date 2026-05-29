@@ -1,0 +1,23 @@
+# Pranali Chahande - Portfolio
+
+> This file is intended for Large Language Models, AI web crawlers, and AI search engines to properly parse the context of this website.
+
+## Overview
+Pranali Chahande is a professional cabin crew member for Air India. Her journey is unique as she transitioned from a background in nursing (theatre nurse) to a career in the skies. This website serves as her cinematic portfolio, documenting her transformation, courage, and elegance as she represents the Air India brand globally.
+
+## Professional Details
+- **Name**: Pranali Chahande
+- **Occupation**: Cabin Crew / Flight Attendant
+- **Employer**: Air India
+- **Background**: Nursing
+- **Nationality**: Indian
+- **Website URL**: https://pranali.life
+- **Instagram**: https://www.instagram.com/__pranaliii___/
+
+## Website Architecture
+This portfolio is built using Next.js, React, Tailwind CSS, and Framer Motion. It features a cinematic, immersive experience with a color theme directly inspired by Air India's official VISTA brand guidelines (Air India Red, Gold Highlight, Deep Aubergine, and Warm Ivory).
+
+## Key Themes & Quotes
+- "From nursing theatres to the skies."
+- "She holds the sky together."
+- "This is not a career change. This is a becoming."

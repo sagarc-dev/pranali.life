@@ -65,7 +65,7 @@ function GlobeWithMarkers() {
       .hexPolygonMargin(0.3)
       .hexPolygonColor(() => "rgba(201,149,42,0.8)")
       .showAtmosphere(true)
-      .atmosphereColor("#C9952A")
+      .atmosphereColor("#B7925F")
       .atmosphereAltitude(0.15);
 
     // Make the base globe invisible/dark
@@ -99,7 +99,7 @@ function GlobeWithMarkers() {
           {/* Intense golden halo around the marker */}
           <mesh>
             <sphereGeometry args={[3.5, 16, 16]} />
-            <meshBasicMaterial color="#C9952A" transparent opacity={0.6} />
+            <meshBasicMaterial color="#B7925F" transparent opacity={0.6} />
           </mesh>
         </mesh>
       );

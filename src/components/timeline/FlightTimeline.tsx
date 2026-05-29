@@ -76,7 +76,7 @@ export default function FlightTimeline() {
           <path
             d="M 50 0 C 80 20, 20 50, 50 80 C 80 110, 50 150, 50 150"
             fill="none"
-            stroke="#C9952A"
+            stroke="#B7925F"
             strokeWidth="0.5"
             strokeDasharray="2 4"
             vectorEffect="non-scaling-stroke"
@@ -85,7 +85,7 @@ export default function FlightTimeline() {
           <motion.path
             d="M 50 0 C 80 20, 20 50, 50 80 C 80 110, 50 150, 50 150"
             fill="none"
-            stroke="#C9952A"
+            stroke="#B7925F"
             strokeWidth="1.5"
             vectorEffect="non-scaling-stroke"
             style={{ pathLength }}
@@ -100,7 +100,7 @@ export default function FlightTimeline() {
           top: "15%",
           bottom: "15%",
           y: planeY,
-          color: "#C9952A",
+          color: "#B7925F",
           fontSize: "1.5rem",
           textShadow: "0 0 20px rgba(201,149,42,0.5)",
           rotate: 90, // point down
@@ -148,7 +148,7 @@ export default function FlightTimeline() {
           className="font-serif font-light"
           style={{
             fontSize: "clamp(2.2rem, 10vw, 4.5rem)",
-            color: "#F5EDD8",
+            color: "#F0CF98",
             lineHeight: 1.1,
             textAlign: "center",
           }}
@@ -180,7 +180,7 @@ export default function FlightTimeline() {
             width: "6rem",
             height: "1px",
             marginTop: "1.5rem",
-            background: "linear-gradient(90deg, transparent, #C9952A, transparent)",
+            background: "linear-gradient(90deg, transparent, #B7925F, transparent)",
           }}
         />
       </div>
@@ -247,7 +247,7 @@ export default function FlightTimeline() {
                   </div>
                   <h3
                     className="font-serif font-light"
-                    style={{ color: "#F5EDD8", fontSize: "clamp(1.4rem, 5vw, 1.75rem)", lineHeight: 1.2 }}
+                    style={{ color: "#F0CF98", fontSize: "clamp(1.4rem, 5vw, 1.75rem)", lineHeight: 1.2 }}
                   >
                     {activeStop.title}
                   </h3>

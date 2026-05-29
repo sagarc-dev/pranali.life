@@ -73,7 +73,7 @@ function IFECard({ item, index, onClick }: { item: (typeof IFE_CONTENT)[0]; inde
           className="absolute top-2 left-2 font-mono px-2 py-0.5 rounded"
           style={{
             background: "rgba(196,18,48,0.75)",
-            color: "#F5EDD8",
+            color: "#F0CF98",
             fontSize: "0.6rem",
             letterSpacing: "0.1em",
             backdropFilter: "blur(4px)",
@@ -87,7 +87,7 @@ function IFECard({ item, index, onClick }: { item: (typeof IFE_CONTENT)[0]; inde
       <div className="p-4">
         <h3
           className="font-serif text-base font-light mb-2"
-          style={{ color: "#F5EDD8", lineHeight: 1.3 }}
+          style={{ color: "#F0CF98", lineHeight: 1.3 }}
         >
           {item.title}
         </h3>
@@ -176,7 +176,7 @@ export default function InFlightEntertainment() {
               <span style={{ fontSize: "0.875rem" }}>📺</span>
               <span
                 className="font-mono"
-                style={{ color: "#C9952A", fontSize: "0.6rem", letterSpacing: "0.1em" }}
+                style={{ color: "#B7925F", fontSize: "0.6rem", letterSpacing: "0.1em" }}
               >
                 IN-FLIGHT ENTERTAINMENT SYSTEM
               </span>
@@ -190,7 +190,7 @@ export default function InFlightEntertainment() {
             className="font-serif font-light"
             style={{
               fontSize: "clamp(2.2rem, 9vw, 4rem)",
-              color: "#F5EDD8",
+              color: "#F0CF98",
               textAlign: "center",
               width: "100%",
               lineHeight: 1.15,
@@ -228,11 +228,11 @@ export default function InFlightEntertainment() {
               onClick={() => setActiveCategory(cat)}
               className="px-4 py-2 rounded-full font-mono text-xs tracking-widest transition-all duration-300"
               style={{
-                background: activeCategory === cat ? "#C9952A" : "rgba(10,4,16,0.8)",
+                background: activeCategory === cat ? "#B7925F" : "rgba(10,4,16,0.8)",
                 color: activeCategory === cat ? "#0A0505" : "rgba(245,237,216,0.5)",
                 border:
                   activeCategory === cat
-                    ? "1px solid #C9952A"
+                    ? "1px solid #B7925F"
                     : "1px solid rgba(201,149,42,0.15)",
                 fontSize: "0.65rem",
                 letterSpacing: "0.1em",
@@ -268,16 +268,16 @@ export default function InFlightEntertainment() {
             style={{
               background: "linear-gradient(135deg, rgba(196,18,48,0.15), rgba(201,149,42,0.15))",
               border: "1px solid rgba(201,149,42,0.3)",
-              color: "#C9952A",
+              color: "#B7925F",
               letterSpacing: "0.15em",
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.background = "linear-gradient(135deg, #C41230, #C9952A)";
+              (e.currentTarget as HTMLElement).style.background = "linear-gradient(135deg, #DC0C2C, #B7925F)";
               (e.currentTarget as HTMLElement).style.color = "#0A0505";
             }}
             onMouseLeave={(e) => {
               (e.currentTarget as HTMLElement).style.background = "linear-gradient(135deg, rgba(196,18,48,0.15), rgba(201,149,42,0.15))";
-              (e.currentTarget as HTMLElement).style.color = "#C9952A";
+              (e.currentTarget as HTMLElement).style.color = "#B7925F";
             }}
           >
             📸 @__PRANALIII___
@@ -308,8 +308,8 @@ export default function InFlightEntertainment() {
               {/* Header Bar */}
               <div className="flex items-center justify-between p-4 bg-[#0a0410] border-b border-[rgba(201,149,42,0.15)]">
                 <div>
-                  <h3 className="font-serif text-[#F5EDD8]">{activeVideo.title}</h3>
-                  <p className="font-mono text-xs text-[#C9952A] mt-1 tracking-widest">{activeVideo.category.toUpperCase()}</p>
+                  <h3 className="font-serif text-[#F0CF98]">{activeVideo.title}</h3>
+                  <p className="font-mono text-xs text-[#B7925F] mt-1 tracking-widest">{activeVideo.category.toUpperCase()}</p>
                 </div>
                 <button
                   onClick={() => setActiveVideo(null)}
@@ -341,7 +341,7 @@ export default function InFlightEntertainment() {
                       <div className="w-16 h-16 rounded-full border border-[rgba(201,149,42,0.3)] flex items-center justify-center mx-auto mb-4 bg-[rgba(10,4,16,0.5)]">
                         <span className="animate-spin text-2xl">✈</span>
                       </div>
-                      <p className="font-mono text-xs tracking-widest text-[#C9952A]">CONNECTING TO SATELLITE...</p>
+                      <p className="font-mono text-xs tracking-widest text-[#B7925F]">CONNECTING TO SATELLITE...</p>
                     </div>
                   </div>
                 )}
