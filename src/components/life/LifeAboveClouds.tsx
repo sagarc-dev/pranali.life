@@ -25,7 +25,7 @@ function RealityCard({ item, index }: { item: (typeof CABIN_REALITIES)[0]; index
             className="font-mono"
             style={{
               background: "rgba(196,18,48,0.1)",
-              color: "#C41230",
+              color: "#DC0C2C",
               border: "1px solid rgba(196,18,48,0.2)",
               letterSpacing: "0.1em",
               fontSize: "0.65rem",
@@ -40,7 +40,7 @@ function RealityCard({ item, index }: { item: (typeof CABIN_REALITIES)[0]; index
 
         <h3
           className="font-serif font-light"
-          style={{ color: "#F5EDD8", fontSize: "clamp(1.1rem, 3vw, 1.3rem)", marginBottom: "0.75rem" }}
+          style={{ color: "#F0CF98", fontSize: "clamp(1.1rem, 3vw, 1.3rem)", marginBottom: "0.75rem" }}
         >
           {item.title}
         </h3>
@@ -55,7 +55,7 @@ function RealityCard({ item, index }: { item: (typeof CABIN_REALITIES)[0]; index
           style={{
             marginTop: "1.25rem",
             height: "1px",
-            background: "linear-gradient(90deg, #C9952A, transparent)",
+            background: "linear-gradient(90deg, #B7925F, transparent)",
             opacity: 0.3,
           }}
         />
@@ -138,7 +138,7 @@ export default function LifeAboveClouds() {
             className="font-serif font-light"
             style={{
               fontSize: "clamp(2.2rem, 9vw, 4.5rem)",
-              color: "#F5EDD8",
+              color: "#F0CF98",
               textAlign: "center",
               lineHeight: 1.15,
               marginBottom: "1rem",
@@ -202,17 +202,17 @@ export default function LifeAboveClouds() {
             <div style={{ maxWidth: "32rem" }}>
               <span
                 className="font-mono"
-                style={{ color: "#C9952A", fontSize: "0.65rem", letterSpacing: "0.15em", display: "block", marginBottom: "1rem" }}
+                style={{ color: "#B7925F", fontSize: "0.65rem", letterSpacing: "0.15em", display: "block", marginBottom: "1rem" }}
               >
                 THE TRUTH BEHIND THE SMILE
               </span>
               <h3
                 className="font-serif font-light"
-                style={{ fontSize: "clamp(1.5rem, 4vw, 2.5rem)", color: "#F5EDD8", lineHeight: 1.3, marginBottom: "1rem" }}
+                style={{ fontSize: "clamp(1.5rem, 4vw, 2.5rem)", color: "#F0CF98", lineHeight: 1.3, marginBottom: "1rem" }}
               >
                 &ldquo;She is trained to keep you safe
                 <br />
-                <span style={{ color: "#C9952A" }}>before she is trained to smile.&rdquo;</span>
+                <span style={{ color: "#B7925F" }}>before she is trained to smile.&rdquo;</span>
               </h3>
               <p
                 className="font-sans"
@@ -280,7 +280,7 @@ export default function LifeAboveClouds() {
           >
             &ldquo;She doesn&rsquo;t just serve meals at 35,000 feet.
             <br />
-            <span style={{ color: "#C9952A" }}>She holds the sky together.&rdquo;</span>
+            <span style={{ color: "#B7925F" }}>She holds the sky together.&rdquo;</span>
           </p>
         </motion.div>
       </div>

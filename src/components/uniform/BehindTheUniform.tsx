@@ -88,7 +88,7 @@ function UniformLine({ item, index }: { item: (typeof UNIFORM_LINES)[0]; index: 
           className="font-serif font-light italic"
           style={{
             fontSize: "clamp(1.5rem, 5vw, 2.5rem)",
-            color: "#C9952A",
+            color: "#B7925F",
             lineHeight: 1.3,
             marginTop: "0.2em",
             textAlign: "center",
@@ -135,6 +135,7 @@ export default function BehindTheUniform() {
     <section
       id="uniform"
       ref={sectionRef}
+      className="chakra-pattern"
       style={{ position: "relative", overflow: "hidden", background: "var(--color-dark)" }}
     >
       {/* Parallax warm light background */}
@@ -185,7 +186,7 @@ export default function BehindTheUniform() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="font-serif font-light"
-          style={{ fontSize: "clamp(2.2rem, 9vw, 4.5rem)", color: "#F5EDD8", textAlign: "center" }}
+          style={{ fontSize: "clamp(2.2rem, 9vw, 4.5rem)", color: "#F0CF98", textAlign: "center" }}
         >
           <ScrambleText text="Her Story" />
         </motion.h2>
@@ -244,11 +245,11 @@ export default function BehindTheUniform() {
           From nursing halls to aircraft aisles,
           <br />
           from government corridors to{" "}
-          <span style={{ color: "#C9952A" }}>the open sky</span> &mdash;
+          <span style={{ color: "#B7925F" }}>the open sky</span> &mdash;
           <br />
           this is not a career change.
           <br />
-          <span style={{ color: "#F5EDD8" }}>This is a becoming.</span>
+          <span style={{ color: "#F0CF98" }}>This is a becoming.</span>
         </motion.p>
       </div>
     </section>

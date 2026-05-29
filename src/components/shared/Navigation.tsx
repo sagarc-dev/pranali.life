@@ -49,15 +49,15 @@ export default function Navigation() {
             <div
               className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-mono"
               style={{
-                background: "linear-gradient(135deg, #C41230, #C9952A)",
-                color: "#F5EDD8",
+                background: "linear-gradient(135deg, #DC0C2C, #B7925F)",
+                color: "#F0CF98",
               }}
             >
               ✈
             </div>
             <span
               className="font-serif text-lg tracking-widest"
-              style={{ color: "#F5EDD8", letterSpacing: "0.2em" }}
+              style={{ color: "#F0CF98", letterSpacing: "0.2em" }}
             >
               {SITE.name.toUpperCase()}
             </span>
@@ -71,16 +71,16 @@ export default function Navigation() {
                   onClick={() => handleNav(item.href)}
                   className="font-mono text-xs tracking-widest transition-colors duration-300"
                   style={{
-                    color: activeSection === item.href ? "#C9952A" : "rgba(245,237,216,0.6)",
+                    color: activeSection === item.href ? "#B7925F" : "rgba(245,237,216,0.6)",
                     letterSpacing: "0.15em",
                     fontSize: "0.7rem",
                   }}
                   onMouseEnter={(e) =>
-                    ((e.target as HTMLElement).style.color = "#C9952A")
+                    ((e.target as HTMLElement).style.color = "#B7925F")
                   }
                   onMouseLeave={(e) =>
                     ((e.target as HTMLElement).style.color =
-                      activeSection === item.href ? "#C9952A" : "rgba(245,237,216,0.6)")
+                      activeSection === item.href ? "#B7925F" : "rgba(245,237,216,0.6)")
                   }
                 >
                   {item.label.toUpperCase()}
@@ -100,7 +100,7 @@ export default function Navigation() {
                 key={i}
                 className="block h-px transition-all duration-300"
                 style={{
-                  background: "#C9952A",
+                  background: "#B7925F",
                   width: i === 1 && menuOpen ? "14px" : "20px",
                   transform:
                     menuOpen
@@ -135,7 +135,7 @@ export default function Navigation() {
                 transition={{ delay: i * 0.08 }}
                 onClick={() => handleNav(item.href)}
                 className="font-serif text-3xl tracking-widest"
-                style={{ color: "#F5EDD8" }}
+                style={{ color: "#F0CF98" }}
               >
                 {item.label}
               </motion.button>

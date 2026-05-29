@@ -30,7 +30,7 @@ function PACard({ item, index }: { item: (typeof ANNOUNCEMENTS)[0]; index: numbe
           top: 0,
           bottom: 0,
           width: "2px",
-          background: "linear-gradient(to bottom, transparent, #C9952A, transparent)",
+          background: "linear-gradient(to bottom, transparent, #B7925F, transparent)",
           opacity: 0.5,
         }}
       />
@@ -66,7 +66,7 @@ function PACard({ item, index }: { item: (typeof ANNOUNCEMENTS)[0]; index: numbe
               className="font-mono"
               style={{
                 background: "rgba(201,149,42,0.1)",
-                color: "#C9952A",
+                color: "#B7925F",
                 border: "1px solid rgba(201,149,42,0.2)",
                 fontSize: "0.6rem",
                 letterSpacing: "0.1em",
@@ -100,7 +100,7 @@ function PACard({ item, index }: { item: (typeof ANNOUNCEMENTS)[0]; index: numbe
 
           <p
             className="font-serif font-light"
-            style={{ color: "#F5EDD8", lineHeight: 1.5, fontSize: "clamp(1rem, 4vw, 1.2rem)", marginBottom: "0.4rem" }}
+            style={{ color: "#F0CF98", lineHeight: 1.5, fontSize: "clamp(1rem, 4vw, 1.2rem)", marginBottom: "0.4rem" }}
           >
             &ldquo;{item.message}&rdquo;
           </p>
@@ -189,7 +189,7 @@ export default function CabinAnnouncements() {
             className="font-serif font-light"
             style={{
               fontSize: "clamp(2.2rem, 9vw, 4.5rem)",
-              color: "#F5EDD8",
+              color: "#F0CF98",
               textAlign: "center",
             }}
           >

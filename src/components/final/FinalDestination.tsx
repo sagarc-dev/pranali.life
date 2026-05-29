@@ -140,11 +140,11 @@ export default function FinalDestination() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="font-serif font-light mb-4"
-          style={{ fontSize: "clamp(1.8rem, 7vw, 3.5rem)", color: "#F5EDD8", lineHeight: 1.25, textAlign: "center" }}
+          style={{ fontSize: "clamp(1.8rem, 7vw, 3.5rem)", color: "#F0CF98", lineHeight: 1.25, textAlign: "center" }}
         >
           &ldquo;Some journeys begin
           <br />
-          <span style={{ color: "#C9952A" }}>after turbulence.&rdquo;</span>
+          <span style={{ color: "#B7925F" }}>after turbulence.&rdquo;</span>
         </motion.h2>
 
         <motion.p
@@ -174,13 +174,13 @@ export default function FinalDestination() {
             href={SITE.instagramUrl}
             icon="📸"
             label={SITE.instagram}
-            color="#C9952A"
+            color="#B7925F"
           />
           <SocialLink
             href={`mailto:${SITE.email}`}
             icon="✉️"
             label="Collaborate"
-            color="#C41230"
+            color="#DC0C2C"
           />
           <SocialLink
             href={SITE.instagramUrl}
@@ -199,7 +199,7 @@ export default function FinalDestination() {
           <div
             className="stamp px-8 py-4"
             style={{
-              color: "#C9952A",
+              color: "#B7925F",
               borderWidth: "3px",
               transform: "rotate(-8deg)",
             }}

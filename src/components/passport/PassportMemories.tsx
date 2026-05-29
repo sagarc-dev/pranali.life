@@ -144,7 +144,7 @@ export default function PassportMemories() {
             className="font-serif font-light"
             style={{
               fontSize: "clamp(2.2rem, 9vw, 4.5rem)",
-              color: "#F5EDD8",
+              color: "#F0CF98",
               textAlign: "center",
               width: "100%",
               lineHeight: 1.15,
@@ -189,7 +189,7 @@ export default function PassportMemories() {
             <div className="flex items-center gap-3">
               <div
                 className="w-10 h-10 rounded flex items-center justify-center text-lg"
-                style={{ background: "linear-gradient(135deg, #C41230, #8B0D22)" }}
+                style={{ background: "linear-gradient(135deg, #DC0C2C, #8B0D22)" }}
               >
                 🇮🇳
               </div>
@@ -200,7 +200,7 @@ export default function PassportMemories() {
                 >
                   REPUBLIC OF INDIA · PASSPORT
                 </p>
-                <p className="font-serif text-lg" style={{ color: "#F5EDD8" }}>
+                <p className="font-serif text-lg" style={{ color: "#F0CF98" }}>
                   Travel Memories
                 </p>
               </div>
@@ -212,7 +212,7 @@ export default function PassportMemories() {
               >
                 TYPE / TYPE
               </p>
-              <p className="font-mono text-sm" style={{ color: "#C9952A" }}>
+              <p className="font-mono text-sm" style={{ color: "#B7925F" }}>
                 P · IND
               </p>
             </div>
@@ -220,7 +220,7 @@ export default function PassportMemories() {
 
           <div
             className="divider-gold mb-8"
-            style={{ background: "linear-gradient(90deg, #C9952A, transparent)" }}
+            style={{ background: "linear-gradient(90deg, #B7925F, transparent)" }}
           />
 
           {/* Stamps Grid */}
@@ -286,7 +286,7 @@ export default function PassportMemories() {
                     <div>
                       <h3
                         className="font-serif text-2xl font-light"
-                        style={{ color: "#F5EDD8" }}
+                        style={{ color: "#F0CF98" }}
                       >
                         {activeStamp.city}
                       </h3>

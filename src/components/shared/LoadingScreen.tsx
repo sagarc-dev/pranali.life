@@ -49,7 +49,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
             <div
               className="w-16 h-16 rounded-full mx-auto mb-6 flex items-center justify-center text-2xl"
               style={{
-                background: "linear-gradient(135deg, #C41230 0%, #C9952A 100%)",
+                background: "linear-gradient(135deg, #DC0C2C 0%, #B7925F 100%)",
                 boxShadow: "0 0 60px rgba(196,18,48,0.4)",
               }}
             >
@@ -63,7 +63,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
             </p>
             <h1
               className="font-serif text-4xl font-light tracking-widest"
-              style={{ color: "#F5EDD8" }}
+              style={{ color: "#F0CF98" }}
             >
               {SITE.name.toUpperCase()}
             </h1>
@@ -84,7 +84,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
               <motion.div
                 className="h-full rounded-full"
                 style={{
-                  background: "linear-gradient(90deg, #C41230, #C9952A)",
+                  background: "linear-gradient(90deg, #DC0C2C, #B7925F)",
                   width: `${Math.min(progress, 100)}%`,
                 }}
                 transition={{ ease: "linear" }}
@@ -108,7 +108,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="font-mono text-xs tracking-[0.3em]"
-                style={{ color: "#C9952A" }}
+                style={{ color: "#B7925F" }}
               >
                 NOW BOARDING ✦
               </motion.p>

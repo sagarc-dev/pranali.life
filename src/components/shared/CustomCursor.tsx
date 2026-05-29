@@ -70,7 +70,7 @@ export default function CustomCursor() {
       height: 12,
       x: "-50%",
       y: "-50%",
-      border: "1px solid #C9952A",
+      border: "1px solid #B7925F",
       backgroundColor: "rgba(201,149,42,0.5)",
       mixBlendMode: "normal" as any,
     },
@@ -120,7 +120,7 @@ export default function CustomCursor() {
             scale: cursorType === "image" ? 1 : 0,
           }}
           className="text-[10px]"
-          style={{ color: "#F5EDD8" }}
+          style={{ color: "#F0CF98" }}
         >
           +
         </motion.div>

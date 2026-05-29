@@ -69,7 +69,7 @@ export default function MagneticButton({
         transition={{ duration: 0.4, ease: "easeOut" }}
         className="absolute inset-0 z-0 pointer-events-none"
         style={{
-          background: hoverBackground || "linear-gradient(135deg, #C9952A, #F0C060)",
+          background: hoverBackground || "linear-gradient(135deg, #B7925F, #F0C060)",
           borderRadius: "inherit",
           transformOrigin: "center",
         }}

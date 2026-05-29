@@ -41,7 +41,7 @@ export default function ScrollSidebar() {
           className="absolute top-0 bottom-0 w-[2px] left-1/2 -translate-x-1/2 origin-top rounded-full"
           style={{ 
             scaleY: scrollYProgress,
-            background: "linear-gradient(to bottom, transparent, #C9952A, #F0C060)" 
+            background: "linear-gradient(to bottom, transparent, #B7925F, #F0C060)" 
           }}
         />
 
@@ -64,7 +64,7 @@ export default function ScrollSidebar() {
             viewBox="0 0 24 24" 
             fill="none" 
             xmlns="http://www.w3.org/2000/svg"
-            className="relative z-10 text-[#F5EDD8]"
+            className="relative z-10 text-[#F0CF98]"
             style={{ 
               transform: "rotate(180deg)", // Point downwards
               filter: "drop-shadow(0px 0px 4px rgba(240,192,96,0.9))"
@@ -86,14 +86,14 @@ export default function ScrollSidebar() {
                 {/* Dot on the line */}
                 <div 
                   className={`absolute right-1/2 translate-x-1/2 w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
-                    isActive ? "bg-[#F0C060] shadow-[0_0_8px_rgba(240,192,96,0.8)]" : "bg-[#C9952A] opacity-20"
+                    isActive ? "bg-[#F0C060] shadow-[0_0_8px_rgba(240,192,96,0.8)]" : "bg-[#B7925F] opacity-20"
                   }`} 
                 />
                 
                 {/* Text Label */}
                 <span 
                   className={`font-mono text-[0.55rem] tracking-[0.2em] transition-all duration-300 whitespace-nowrap mr-6 ${
-                    isActive ? "text-[#F0C060] opacity-100 font-bold" : "text-[#C9952A] opacity-30 font-normal"
+                    isActive ? "text-[#F0C060] opacity-100 font-bold" : "text-[#B7925F] opacity-30 font-normal"
                   }`}
                   style={{
                     textShadow: isActive ? "0 0 10px rgba(240,192,96,0.4)" : "none",
