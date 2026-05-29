@@ -3,7 +3,8 @@ import { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import Image from "next/image";
 import ScrambleText from "@/components/shared/ScrambleText";
-import PassportGlobe from "./PassportGlobe";
+import dynamic from "next/dynamic";
+const PassportGlobe = dynamic(() => import("./PassportGlobe"), { ssr: false });
 import { PASSPORT_STAMPS } from "@/lib/constants";
 
 type Stamp = (typeof PASSPORT_STAMPS)[0];

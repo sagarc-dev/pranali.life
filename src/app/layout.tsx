@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, DM_Sans, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/components/shared/CustomCursor";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "Pranali Chahande — Journey Through the Skies | Air India Cabin Crew",
@@ -54,6 +55,7 @@ export default function RootLayout({
       <body>
         <CustomCursor />
         {children}
+        <Analytics />
       </body>
     </html>
   );

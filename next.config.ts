@@ -13,16 +13,16 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["framer-motion", "gsap"],
   },
-  async rewrites() {
-    return {
-      beforeFiles: [
-        {
-          source: "/",
-          destination: "/pranali-portfolio.html",
-        },
-      ],
-    };
-  },
+  // async rewrites() {
+  //   return {
+  //     beforeFiles: [
+  //       {
+  //         source: "/",
+  //         destination: "/pranali-portfolio.html",
+  //       },
+  //     ],
+  //   };
+  // },
 };
 
 export default nextConfig;

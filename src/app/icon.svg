@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="gold-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E5A93D" />
+      <stop offset="50%" stop-color="#FFE194" />
+      <stop offset="100%" stop-color="#B37C20" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <!-- Stronger blur for a nice glow -->
+      <feGaussianBlur stdDeviation="35" result="blur1" />
+      <feGaussianBlur stdDeviation="15" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur1" />
+        <feMergeNode in="blur2" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Add a slight scale to fit the blur inside the viewbox -->
+  <g transform="scale(0.7) translate(110, 110)">
+    <g filter="url(#glow)" transform="rotate(45 256 256)">
+      <path d="M464,320 l-168,-104 v-136 c0,-26.5 -21.5,-48 -48,-48 s-48,21.5 -48,48 v136 l-168,104 v48 l168,-56 v120 l-48,32 v48 l72,-24 l72,24 v-48 l-48,-32 v-120 l168,56 v-48 z" fill="url(#gold-grad)"/>
+    </g>
+  </g>
+</svg>
